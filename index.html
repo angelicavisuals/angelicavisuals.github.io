@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script>/* Prevent theme flash: apply stored or preferred theme early */(function(){try{var s=localStorage.getItem('theme');if(s==='dark'||(!s&&window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches)){document.documentElement.setAttribute('data-theme','dark');} }catch(e){} })();</script>
+    <title>Angelica Andreasson | Digital Artist</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    
+    <style>
+        /* --- Specific Styles for Home-About Section --- */
+    </style>
+</head>
+<body class="home-page">
+
+    <nav>
+        <div class="nav-inner">
+            <button id="menu-toggle" class="menu-toggle" aria-label="Toggle navigation menu">
+                <i class="fas fa-bars"></i>
+            </button>
+            <a href="index.html" class="logo">Angelica Andreasson.</a>
+            <div class="nav-right">
+                <ul class="nav-links">
+                    <li><a href="work.html" class="nav-item">Work</a></li>
+                    <li><a href="about.html" class="nav-item">About</a></li>
+                    <li><a href="contact.html" class="nav-item">Contact</a></li>
+                </ul>
+                <button id="theme-toggle" class="theme-toggle" aria-pressed="false" aria-label="Toggle light and dark theme"><i class="fas fa-moon"></i></button>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <header id="hero" class="hero--compact">
+            <div class="hero-text hidden centered">
+                <h1>Angelica⠀⠀⠀⠀⠀<br>⠀⠀⠀Andreasson.</h1>
+                <p class="hero-intro">
+                    Visualizing concepts through 3D motion & design.
+                </p>
+                <p class="hero-location">
+                    Based in Gothenburg, Sweden.
+                </p>
+            </div>
+        </header>
+
+        <section class="gallery-section home-gallery">
+            <h3 class="section-title hidden">Selected Works</h3>
+            
+            <div class="gallery-grid">
+                <div class="project-card hidden" onclick="openModal('modal-1')">
+                    <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1000&auto=format&fit=crop" class="project-image" alt="Ethereal Shapes - 3D animation" loading="lazy">
+                    <div class="project-info">
+                        <h3>Ethereal Shapes</h3>
+                        <p>3D Animation</p>
+                    </div>
+                </div>
+
+                <div class="project-card hidden" onclick="openModal('modal-3')">
+                    <img src="https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=1000&auto=format&fit=crop" class="project-image" alt="Neon Flux - Motion design" loading="lazy">
+                    <div class="project-info">
+                        <h3>Neon Flux</h3>
+                        <p>Motion Design</p>
+                    </div>
+                </div>
+
+                <div class="project-card hidden" onclick="openModal('modal-2')">
+                    <img src="https://images.unsplash.com/photo-1633511090164-b43840ea1607?q=80&w=1000&auto=format&fit=crop" class="project-image" alt="Modern Villa - Architecture visualization" loading="lazy">
+                    <div class="project-info">
+                        <h3>Modern Villa</h3>
+                        <p>ArchViz / Unreal</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="btn-container hidden">
+                <a href="work.html" class="primary-btn">View All Projects</a>
+            </div>
+        </section>
+
+        <section id="home-about" class="hidden">
+            <div class="home-about-image">
+                <img src="Images/Portrait.png" alt="Angelica Andreasson Portrait">
+            </div>
+            <div class="about-content">
+                <h2>About Me</h2>
+                <p>I am a Computer Graphics Designer student based in Gothenburg, focusing on product and design visualization. I am passionate about creating visually compelling and meaningful experiences.</p>
+                <a href="about.html" style="color: var(--text-color); font-weight: 600; border-bottom: 2px solid var(--accent-green);">Read Full Bio</a>
+            </div>
+        </section>
+    </main>
+
+    <!-- Shared modals are loaded via script.js -->
+
+    <footer>
+        <div class="copyright">&copy;  2026 Angelica Andreasson</div>
+        <div class="social-icons">
+            <a href="https://www.linkedin.com/in/angelica-andreasson-400837234/?originalSubdomain=se" target="_blank"><i class="fab fa-linkedin"></i></a>
+            <a href="https://instagram.com/studioandreasson" target="_blank"><i class="fab fa-instagram"></i></a>
+            <a href="mailto:angelica.andreasson1@gmail.com"><i class="fas fa-envelope"></i></a>
+            <a href="Angelica_Andreasson_CV.pdf" target="_blank" class="cv-link cv-btn"><i class="fas fa-file-pdf"></i> CV</a>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

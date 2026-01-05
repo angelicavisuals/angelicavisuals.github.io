@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script>/* Prevent theme flash: apply stored or preferred theme early */(function(){try{var s=localStorage.getItem('theme');if(s==='dark'||(!s&&window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches)){document.documentElement.setAttribute('data-theme','dark');} }catch(e){} })();</script>
+    <title>Angelica Andreasson | 3D Artist</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="work-page">
+
+    <nav>
+        <div class="nav-inner">
+            <button id="menu-toggle" class="menu-toggle" aria-label="Toggle navigation menu">
+                <i class="fas fa-bars"></i>
+            </button>
+            <a href="index.html" class="logo">Angelica Andreasson.</a>
+            <div class="nav-right">
+                <ul class="nav-links">
+                    <li><a href="work.html" class="nav-item active" aria-current="page">Work</a></li>
+                    <li><a href="about.html" class="nav-item">About</a></li>
+                    <li><a href="contact.html" class="nav-item">Contact</a></li>
+                </ul>
+                <button id="theme-toggle" class="theme-toggle" aria-pressed="false" aria-label="Toggle light and dark theme"><i class="fas fa-moon"></i></button>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <header id="hero" class="hero--compact">
+            <div class="hero-text hidden centered">
+                <h1>Project⠀⠀⠀⠀<br>⠀⠀⠀Portfolio.</h1>
+                <h2>WORK IN PROGRESS</h2>
+                <p class="hero-intro">Click on a project to view process, wireframes, and animations.</p>
+            </div>
+        </header>
+
+        <section class="gallery-section work-gallery">
+            <div class="filters hidden" aria-label="Project filters">
+                <button class="filter-btn active" data-filter="all">All</button>
+                <button class="filter-btn" data-filter="visualization">Visualization</button>
+                <button class="filter-btn" data-filter="animation">Animation</button>
+            </div>
+            <div class="gallery-grid">
+
+                <div class="project-card hidden" data-category="visualization" onclick="openModal('modal-1')">
+                    <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1000&auto=format&fit=crop" class="project-image" alt="Ethereal Shapes project cover" loading="lazy">
+                    <div class="project-info">
+                        <h3>Ethereal Shapes</h3>
+                        <p>Visualization / Blender</p>
+                    </div>
+                </div>
+
+                <div class="project-card hidden" data-category="animation" onclick="openModal('modal-2')">
+                    <img src="https://images.unsplash.com/photo-1633511090164-b43840ea1607?q=80&w=1000&auto=format&fit=crop" class="project-image" alt="Modern Villa project cover" loading="lazy">
+                    <div class="project-info">
+                        <h3>Modern Villa</h3>
+                        <p>Animation / Unreal Engine 5</p>
+                    </div>
+                </div>
+
+                <div class="project-card hidden" data-category="visualization" onclick="openModal('modal-3')">
+                    <img src="https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=1000&auto=format&fit=crop" class="project-image" alt="Neon Flux project cover" loading="lazy">
+                    <div class="project-info">
+                        <h3>Neon Flux</h3>
+                        <p>Visualization / Motion Design</p>
+                    </div>
+                </div>
+
+                <div class="project-card hidden" data-category="animation" onclick="openModal('modal-4')">
+                    <img src="https://images.unsplash.com/photo-1558655146-d09347e92766?q=80&w=1000&auto=format&fit=crop" class="project-image" alt="Clay Study project cover" loading="lazy">
+                    <div class="project-info">
+                        <h3>Clay Study</h3>
+                        <p>Material Study</p>
+                    </div>
+                </div>
+
+                <div class="project-card hidden" data-category="animation" onclick="openModal('modal-5')">
+                    <img src="https://images.unsplash.com/photo-1506765515384-028b60a970df?q=80&w=1000&auto=format&fit=crop" class="project-image" alt="Modern Pavilion project cover" loading="lazy">
+                    <div class="project-info">
+                        <h3>Modern Pavilion</h3>
+                        <p>Architectural Visualization</p>
+                    </div>
+                </div>
+
+                <div class="project-card hidden" data-category="visualization" onclick="openModal('modal-6')">
+                    <img src="https://images.unsplash.com/photo-1494526585095-c41746248156?q=80&w=1000&auto=format&fit=crop" class="project-image" alt="Glass Forms project cover" loading="lazy">
+                    <div class="project-info">
+                        <h3>Glass Forms</h3>
+                        <p>Procedural Modeling</p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="copyright">&copy;  2026 Angelica Andreasson</div>
+        <div class="social-icons">
+            <a href="https://www.linkedin.com/in/angelica-andreasson-400837234/?originalSubdomain=se" target="_blank"><i class="fab fa-linkedin"></i></a>
+            <a href="https://instagram.com/studioandreasson" target="_blank"><i class="fab fa-instagram"></i></a>
+            <a href="mailto:angelica.andreasson1@gmail.com"><i class="fas fa-envelope"></i></a>
+            <a href="Angelica_Andreasson_CV.pdf" target="_blank" class="cv-link cv-btn"><i class="fas fa-file-pdf"></i> CV</a>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

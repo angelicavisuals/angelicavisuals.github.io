@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script>/* Prevent theme flash: apply stored or preferred theme early */(function(){try{var s=localStorage.getItem('theme');if(s==='dark'||(!s&&window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches)){document.documentElement.setAttribute('data-theme','dark');} }catch(e){} })();</script>
+    <title>Contact | Angelica Andreasson</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <nav>
+        <div class="nav-inner">
+            <button id="menu-toggle" class="menu-toggle" aria-label="Toggle navigation menu">
+                <i class="fas fa-bars"></i>
+            </button>
+            <a href="index.html" class="logo">Angelica Andreasson.</a>
+            <div class="nav-right">
+                <ul class="nav-links">
+                    <li><a href="work.html" class="nav-item">Work</a></li>
+                    <li><a href="about.html" class="nav-item">About</a></li>
+                    <li><a href="contact.html" class="nav-item active" aria-current="page">Contact</a></li>
+                </ul>
+                <button id="theme-toggle" class="theme-toggle" aria-pressed="false" aria-label="Toggle light and dark theme"><i class="fas fa-moon"></i></button>
+            </div>
+        </div>
+    </nav>
+
+
+    <main>
+        <section class="page-header hidden">
+            <h1>Get in Touch</h1>
+            <p>Available for collaborations.</p>
+        </section>
+
+        <section class="contact-container hidden">
+            <form class="contact-form" action="mailto:your-email@example.com" method="post" enctype="text/plain">
+                <label for="name">Name</label>
+                <input id="name" type="text" name="name" required placeholder="Your Name">
+
+                <label for="email">Email</label>
+                <input id="email" type="email" name="email" required placeholder="your@email.com">
+
+                <label for="message">Message</label>
+                <textarea id="message" name="message" rows="6" required placeholder="Tell me about your project..."></textarea>
+
+                <div style="text-align:center; margin-top:1.25rem;">
+                    <button type="submit" class="primary-btn">Send Message</button>
+                </div>
+            </form>
+
+            <div class="contact-alt" style="text-align:center; margin-top:2.5rem;">
+                <p>Or email me directly at:</p>
+                <a href="mailto:angelica.andreasson1@gmail.com" class="accent-link">angelica.andreasson1@gmail.com</a>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="copyright">&copy;  2026 Angelica Andreasson</div>
+        <div class="social-icons">
+            <a href="https://www.linkedin.com/in/angelica-andreasson-400837234/?originalSubdomain=se" target="_blank"><i class="fab fa-linkedin"></i></a>
+            <a href="https://instagram.com/studioandreasson" target="_blank"><i class="fab fa-instagram"></i></a>
+            <a href="mailto:angelica.andreasson1@gmail.com"><i class="fas fa-envelope"></i></a>
+            <a href="Angelica_Andreasson_CV.pdf" target="_blank" class="cv-link cv-btn"><i class="fas fa-file-pdf"></i> CV</a>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
