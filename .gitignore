@@ -1,0 +1,20 @@
+# Jekyll build output
+_site/
+.jekyll-cache/
+.jekyll-metadata
+
+# Bundler
+vendor/bundle/
+.bundle/
+.bundler
+*.lock
+
+# Local development
+.DS_Store
+.vscode/
+*.swp
+*.swo
+*~
+
+# Dependencies (will be installed by bundle install)
+Gemfile.lock
