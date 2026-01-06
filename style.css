@@ -55,6 +55,44 @@ html { scroll-behavior: smooth; scrollbar-gutter: stable; }
 body { overflow-y: scroll; }
 
 /* =========================================
+   1.5 NOSCRIPT WARNING
+   ========================================= */
+.noscript-warning {
+    background: #e74c3c;
+    color: white;
+    padding: 1.5rem 2rem;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-weight: 500;
+    box-shadow: 0 4px 12px rgba(231, 76, 60, 0.3);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 10000;
+    width: 100%;
+}
+
+.noscript-warning i {
+    font-size: 1.5rem;
+    flex-shrink: 0;
+}
+
+.noscript-warning strong {
+    display: block;
+    font-size: 1.1rem;
+    margin-bottom: 0.25rem;
+}
+
+.noscript-warning p {
+    margin: 0;
+    font-size: 0.95rem;
+    opacity: 0.95;
+}
+
+/* =========================================
    2. NAVBAR
    ========================================= */
 nav {

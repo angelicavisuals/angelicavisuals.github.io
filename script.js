@@ -106,7 +106,7 @@
       subtitle: 'Blender Cycles / Geometry Nodes',
       coverImg: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1000&auto=format&fit=crop',
       description: 'This project was an exploration of light refraction and procedural geometry. I used Geometry Nodes to create the floating elements and simulated the glass material using a custom shader in Cycles. The goal was to create a calming, abstract loop.',
-      video: 'Images/SonyHeadphones.mp4',
+      video: 'media/SonyHeadphones.mp4',
       gallery: [
         'https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=1000&auto=format&fit=crop',
         'https://images.unsplash.com/photo-1558655146-d09347e92766?q=80&w=1000&auto=format&fit=crop',
