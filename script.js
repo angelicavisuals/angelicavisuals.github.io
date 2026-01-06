@@ -5,6 +5,10 @@
   const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
   const defaultTheme = stored || (prefersDark ? 'dark' : 'light');
 
+  // Global cache for pages and assets (persists across navigations)
+  const pageCache = new Map();
+  const assetCache = new Map();
+
   // Load shared navbar and footer from components.html
   function loadComponents(){
     // Detect if we're in a subdirectory by checking the current path
@@ -202,13 +206,81 @@
             ${project.gallery ? `
               <h3>Renders & Wireframes</h3>
               <div class="modal-gallery">
-                ${project.gallery.map(img => `<img src="${img}" alt="Gallery image">`).join('')}
+                ${project.gallery.map((img, idx) => `<img src="${img}" alt="Gallery image" class="gallery-img" onclick="openImageViewer('${img}')">`).join('')}
               </div>` : ''}
           </div>
         </div>
       </div>
     `;
   }
+
+  // Global Image Viewer for fullscreen gallery images
+  window.openImageViewer = function(imageSrc) {
+    const viewer = document.getElementById('image-viewer') || createImageViewer();
+    const viewerImg = viewer.querySelector('.viewer-image');
+    viewerImg.src = imageSrc;
+    viewer.classList.add('active');
+    viewer.dataset.modalId = getActiveModalId(); // Store current modal
+    document.body.style.overflow = 'hidden';
+  };
+
+  window.closeImageViewer = function() {
+    const viewer = document.getElementById('image-viewer');
+    if(viewer) {
+      viewer.classList.remove('active');
+      viewer.dataset.modalId = ''; // Clear modal reference
+      document.body.style.overflow = 'auto';
+    }
+  };
+
+  // Get the currently active modal's ID
+  function getActiveModalId() {
+    const activeModal = document.querySelector('.modal.active');
+    return activeModal ? activeModal.id : null;
+  }
+
+  function createImageViewer() {
+    const viewer = document.createElement('div');
+    viewer.id = 'image-viewer';
+    viewer.className = 'image-viewer';
+    viewer.innerHTML = `
+      <div class="viewer-backdrop" onclick="closeImageViewer()"></div>
+      <div class="viewer-container">
+        <img src="" alt="Fullscreen image" class="viewer-image">
+        <button class="viewer-close" onclick="closeImageViewer()">&times;</button>
+        <button class="viewer-nav prev" onclick="event.stopPropagation(); navigateImage(-1)">❮</button>
+        <button class="viewer-nav next" onclick="event.stopPropagation(); navigateImage(1)">❯</button>
+      </div>
+    `;
+    document.body.appendChild(viewer);
+    
+    // Close on ESC
+    document.addEventListener('keydown', (e) => {
+      if(e.key === 'Escape' && viewer.classList.contains('active')) {
+        closeImageViewer();
+      }
+    });
+    
+    return viewer;
+  }
+
+  window.navigateImage = function(direction) {
+    const viewer = document.getElementById('image-viewer');
+    const modalId = viewer.dataset.modalId;
+    
+    // Only look for images in the current modal
+    const activeModal = document.getElementById(modalId);
+    if(!activeModal) return;
+    
+    const currentSrc = viewer.querySelector('.viewer-image').src;
+    const modalGalleryImages = Array.from(activeModal.querySelectorAll('.gallery-img'));
+    
+    if(modalGalleryImages.length === 0) return;
+    
+    const currentIndex = modalGalleryImages.findIndex(img => img.src === currentSrc);
+    const nextIndex = (currentIndex + direction + modalGalleryImages.length) % modalGalleryImages.length;
+    openImageViewer(modalGalleryImages[nextIndex].src);
+  };
 
   function initModals(){
     const modalContainer = document.createElement('div');
@@ -368,63 +440,117 @@
 
   // Preload pages on hover for instant navigation with cache-on-click
   function initPreload(){
-    const pageCache = new Map();
+    // Prevent re-initializing listeners on every page swap
+    if(window.preloadInitialized) return;
+    window.preloadInitialized = true;
+    
+    // Preload all media assets from HTML
+    const preloadAssets = (html) => {
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(html, 'text/html');
+      
+      // Preload all images
+      doc.querySelectorAll('img').forEach(img => {
+        const src = img.src;
+        if(src && !assetCache.has(src)) {
+          fetch(src)
+            .then(response => {
+              if(response.ok) {
+                assetCache.set(src, true);
+                console.log(`  🖼️ Preloaded image: ${src}`);
+              }
+            })
+            .catch(() => {}); // Silently fail for assets
+        }
+      });
+      
+      // Preload all video sources
+      doc.querySelectorAll('video source').forEach(source => {
+        const src = source.src;
+        if(src && !assetCache.has(src)) {
+          fetch(src, { method: 'HEAD' })
+            .then(response => {
+              if(response.ok) {
+                assetCache.set(src, true);
+                console.log(`  🎬 Preloaded video: ${src}`);
+              }
+            })
+            .catch(() => {}); // Silently fail for assets
+        }
+      });
+      
+      // Preload background images from CSS
+      doc.querySelectorAll('[style*="background-image"]').forEach(el => {
+        const style = el.getAttribute('style');
+        const match = style.match(/url\(['"]?([^'"]+)['"]?\)/);
+        if(match && match[1]) {
+          const src = match[1];
+          if(!assetCache.has(src)) {
+            fetch(src)
+              .then(response => {
+                if(response.ok) {
+                  assetCache.set(src, true);
+                  console.log(`  🎨 Preloaded bg image: ${src}`);
+                }
+              })
+              .catch(() => {}); // Silently fail for assets
+          }
+        }
+      });
+    };
     
     // Wait for components to load, then attach preload listeners
     const attachPreloadListeners = () => {
-      const navLinks = document.querySelectorAll('a[href*="pages/"]');
-      console.log(`Found ${navLinks.length} page links to preload`);
+      // Better selector: all internal links (not http/https, not anchors)
+      const navLinks = document.querySelectorAll('a:not([href^="http"]):not([href^="#"]):not([href^="mailto"]):not([href^="tel"])');
+      console.log(`Found ${navLinks.length} internal links to preload`);
       
-      navLinks.forEach((link, index) => {
-        link.addEventListener('mouseenter', () => {
-          const href = link.getAttribute('href');
-          
-          // Skip if already cached
-          if(pageCache.has(href)) {
-            console.log(`↻ Already cached: ${href}`);
-            return;
-          }
-          
-          // Fetch and cache the page HTML
-          fetch(href)
-            .then(response => response.text())
-            .then(html => {
-              pageCache.set(href, html);
-              console.log(`✓ Preloaded: ${href}`);
-            })
-            .catch(err => console.warn(`✗ Preload failed for ${href}:`, err));
-        });
+      navLinks.forEach((link) => {
+        // Normalize relative href to absolute URL for consistent cache keys
+        const rawHref = link.getAttribute('href');
+        const absoluteURL = new URL(rawHref, window.location.href).href;
         
-        // Intercept clicks to load from cache instantly
+        // Hover to preload
+        link.addEventListener('mouseenter', () => {
+          // Check if already cached or currently preloading
+          if(pageCache.has(absoluteURL) || link.dataset.preloading === 'true') return;
+          
+          link.dataset.preloading = 'true'; // Flag to prevent concurrent fetches
+
+          fetch(rawHref)
+            .then(response => {
+              if (!response.ok) throw new Error();
+              return response.text();
+            })
+            .then(html => {
+              pageCache.set(absoluteURL, html); // Store under normalized key
+              console.log(`✓ Preloaded (Normalized): ${absoluteURL}`);
+              
+              // Preload all assets from this page
+              preloadAssets(html);
+            })
+            .catch(err => console.warn(`✗ Preload failed: ${absoluteURL}`, err))
+            .finally(() => {
+              delete link.dataset.preloading;
+            });
+        }, { once: true }); // Only trigger once per page load
+        
+        // Click to load from cache
         link.addEventListener('click', (e) => {
-          const href = link.getAttribute('href');
-          const cachedHTML = pageCache.get(href);
+          const cachedHTML = pageCache.get(absoluteURL);
           
           if(cachedHTML) {
-            e.preventDefault();
-            console.log(`⚡ Loading from cache: ${href}`);
+            e.preventDefault(); // Stop the browser from navigating
+            console.log(`⚡ Loading from cache: ${absoluteURL}`);
             
-            // Replace page content instantly
+            // Replace entire document with cached HTML
             document.documentElement.innerHTML = cachedHTML;
             
-            // Update URL without reload
-            window.history.pushState({}, '', href);
+            // Update URL so back button works (use original href, not absoluteURL)
+            window.history.pushState({}, '', rawHref);
             
-            // Re-initialize scripts on new page
-            setTimeout(() => {
-              loadComponents().then(() => {
-                initToggle();
-                initMenu();
-                initModals();
-                initReveal();
-                initFilters();
-                initCopyright();
-                initContactForm();
-                initClipboard();
-                initButtonFeedback();
-                attachPreloadListeners(); // Re-attach for new page links
-              });
-            }, 50);
+            // Re-initialize all scripts on the new page
+            runAllInits();
           }
         });
       });
@@ -433,8 +559,9 @@
     // Attach listeners when components are loaded
     setTimeout(attachPreloadListeners, 100);
     
-    // Store cache in window for inspection
+    // Store caches in window for inspection
     window.pageCache = pageCache;
+    window.assetCache = assetCache;
   }
 
   // Update Copyright
@@ -447,22 +574,8 @@
   // Apply stored/default theme
   applyTheme(defaultTheme);
 
-  // Initialize when DOM is ready
-  if(document.readyState === 'loading'){
-    document.addEventListener('DOMContentLoaded', () => {
-      loadComponents().then(() => {
-        initToggle();
-        initMenu();
-        initModals();
-        initReveal();
-        initFilters();
-        initCopyright();
-        initContactForm();
-        initClipboard();
-        initButtonFeedback();
-      });
-    });
-  } else {
+  // Consolidated initialization function
+  const runAllInits = () => {
     loadComponents().then(() => {
       initToggle();
       initMenu();
@@ -473,7 +586,14 @@
       initContactForm();
       initClipboard();
       initButtonFeedback();
-      initPreload();
+      initPreload(); // Ensure this always runs
     });
+  };
+
+  // Initialize when DOM is ready
+  if(document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded', runAllInits);
+  } else {
+    runAllInits();
   }
 })();
