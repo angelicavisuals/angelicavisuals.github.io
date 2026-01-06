@@ -5,10 +5,6 @@
   const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
   const defaultTheme = stored || (prefersDark ? 'dark' : 'light');
 
-  // Global cache for pages and assets (persists across navigations)
-  const pageCache = new Map();
-  const assetCache = new Map();
-
   // Load shared navbar and footer from components.html
   function loadComponents(){
     // Detect if we're in a subdirectory by checking the current path
@@ -438,132 +434,6 @@
     });
   }
 
-  // Preload pages on hover for instant navigation with cache-on-click
-  function initPreload(){
-    // Prevent re-initializing listeners on every page swap
-    if(window.preloadInitialized) return;
-    window.preloadInitialized = true;
-    
-    // Preload all media assets from HTML
-    const preloadAssets = (html) => {
-      const parser = new DOMParser();
-      const doc = parser.parseFromString(html, 'text/html');
-      
-      // Preload all images
-      doc.querySelectorAll('img').forEach(img => {
-        const src = img.src;
-        if(src && !assetCache.has(src)) {
-          fetch(src)
-            .then(response => {
-              if(response.ok) {
-                assetCache.set(src, true);
-                console.log(`  🖼️ Preloaded image: ${src}`);
-              }
-            })
-            .catch(() => {}); // Silently fail for assets
-        }
-      });
-      
-      // Preload all video sources
-      doc.querySelectorAll('video source').forEach(source => {
-        const src = source.src;
-        if(src && !assetCache.has(src)) {
-          fetch(src, { method: 'HEAD' })
-            .then(response => {
-              if(response.ok) {
-                assetCache.set(src, true);
-                console.log(`  🎬 Preloaded video: ${src}`);
-              }
-            })
-            .catch(() => {}); // Silently fail for assets
-        }
-      });
-      
-      // Preload background images from CSS
-      doc.querySelectorAll('[style*="background-image"]').forEach(el => {
-        const style = el.getAttribute('style');
-        const match = style.match(/url\(['"]?([^'"]+)['"]?\)/);
-        if(match && match[1]) {
-          const src = match[1];
-          if(!assetCache.has(src)) {
-            fetch(src)
-              .then(response => {
-                if(response.ok) {
-                  assetCache.set(src, true);
-                  console.log(`  🎨 Preloaded bg image: ${src}`);
-                }
-              })
-              .catch(() => {}); // Silently fail for assets
-          }
-        }
-      });
-    };
-    
-    // Wait for components to load, then attach preload listeners
-    const attachPreloadListeners = () => {
-      // Better selector: all internal links (not http/https, not anchors)
-      const navLinks = document.querySelectorAll('a:not([href^="http"]):not([href^="#"]):not([href^="mailto"]):not([href^="tel"])');
-      console.log(`Found ${navLinks.length} internal links to preload`);
-      
-      navLinks.forEach((link) => {
-        // Normalize relative href to absolute URL for consistent cache keys
-        const rawHref = link.getAttribute('href');
-        const absoluteURL = new URL(rawHref, window.location.href).href;
-        
-        // Hover to preload
-        link.addEventListener('mouseenter', () => {
-          // Check if already cached or currently preloading
-          if(pageCache.has(absoluteURL) || link.dataset.preloading === 'true') return;
-          
-          link.dataset.preloading = 'true'; // Flag to prevent concurrent fetches
-
-          fetch(rawHref)
-            .then(response => {
-              if (!response.ok) throw new Error();
-              return response.text();
-            })
-            .then(html => {
-              pageCache.set(absoluteURL, html); // Store under normalized key
-              console.log(`✓ Preloaded (Normalized): ${absoluteURL}`);
-              
-              // Preload all assets from this page
-              preloadAssets(html);
-            })
-            .catch(err => console.warn(`✗ Preload failed: ${absoluteURL}`, err))
-            .finally(() => {
-              delete link.dataset.preloading;
-            });
-        }, { once: true }); // Only trigger once per page load
-        
-        // Click to load from cache
-        link.addEventListener('click', (e) => {
-          const cachedHTML = pageCache.get(absoluteURL);
-          
-          if(cachedHTML) {
-            e.preventDefault(); // Stop the browser from navigating
-            console.log(`⚡ Loading from cache: ${absoluteURL}`);
-            
-            // Replace entire document with cached HTML
-            document.documentElement.innerHTML = cachedHTML;
-            
-            // Update URL so back button works (use original href, not absoluteURL)
-            window.history.pushState({}, '', rawHref);
-            
-            // Re-initialize all scripts on the new page
-            runAllInits();
-          }
-        });
-      });
-    };
-    
-    // Attach listeners when components are loaded
-    setTimeout(attachPreloadListeners, 100);
-    
-    // Store caches in window for inspection
-    window.pageCache = pageCache;
-    window.assetCache = assetCache;
-  }
-
   // Update Copyright
   function initCopyright(){
     document.querySelectorAll('.copyright').forEach(el => {
@@ -586,7 +456,6 @@
       initContactForm();
       initClipboard();
       initButtonFeedback();
-      initPreload(); // Ensure this always runs
     });
   };
 

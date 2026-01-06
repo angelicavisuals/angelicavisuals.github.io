@@ -628,6 +628,12 @@ body.about-page { background-color: var(--about-bg); }
     z-index: 1;
 }
 
+/* Light mode hero fade (white gradient) */
+:root:not([data-theme="dark"]) .home-page #hero::after,
+:root:not([data-theme="dark"]) .work-page #hero::after {
+    background: linear-gradient(to bottom, rgba(255,255,255,0) 20%, rgba(255,255,255,0.1) 40%, rgba(255,255,255,0.2) 60%, rgba(255,255,255,0.4) 80%, rgba(255,255,255,1) 100%);
+}
+
 /* Ensure text sits above video */
 .home-page #hero .hero-text,
 .work-page #hero .hero-text {
