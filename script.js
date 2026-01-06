@@ -5,6 +5,35 @@
   const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
   const defaultTheme = stored || (prefersDark ? 'dark' : 'light');
 
+  // Load shared navbar and footer from components.html
+  function loadComponents(){
+    return fetch('components.html')
+      .then(response => response.text())
+      .then(html => {
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(html, 'text/html');
+        
+        // Insert navbar at the beginning of body
+        const navbar = doc.querySelector('#navbar-component');
+        if(navbar && !document.querySelector('nav')){
+          document.body.insertBefore(navbar, document.body.firstChild);
+        }
+        
+        // Insert footer at the end of body
+        const footer = doc.querySelector('#footer-component');
+        if(footer && !document.querySelector('footer')){
+          document.body.appendChild(footer);
+        }
+        
+        // Insert clipboard notification
+        const notification = doc.querySelector('#clipboard-notification');
+        if(notification && !document.querySelector('#clipboard-notification')){
+          document.body.appendChild(notification);
+        }
+      })
+      .catch(err => console.log('Components loaded from HTML'));
+  }
+
   function applyTheme(theme){
     const btn = document.getElementById('theme-toggle');
     if(theme === 'dark'){
@@ -230,6 +259,87 @@
     document.querySelectorAll('.hidden').forEach((el) => observer.observe(el));
   }
 
+  // Clipboard functionality with notification
+  function initClipboard(){
+    const copyEmailBtn = document.getElementById('copy-email-btn');
+    const contactEmailBtn = document.getElementById('contact-email-copy');
+    const notification = document.getElementById('clipboard-notification');
+    
+    if(!notification) return;
+
+    const copyToClipboard = (e) => {
+      e.preventDefault();
+      const email = 'angelica.andreasson1@gmail.com';
+      
+      navigator.clipboard.writeText(email).then(() => {
+        // Show notification
+        notification.classList.add('show');
+        
+        // Auto hide after 2 seconds
+        setTimeout(() => {
+          notification.classList.remove('show');
+        }, 2000);
+      }).catch(() => {
+        console.log('Fallback: Could not copy to clipboard');
+      });
+    };
+
+    if(copyEmailBtn){
+      copyEmailBtn.addEventListener('click', copyToClipboard);
+    }
+
+    if(contactEmailBtn){
+      contactEmailBtn.addEventListener('click', copyToClipboard);
+    }
+  }
+
+  // Button click feedback - add clicked state to primary buttons
+  function initButtonFeedback(){
+    document.querySelectorAll('.primary-btn, button[type="submit"]').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        // Only add visual feedback for actual buttons (not form submits which have their own feedback)
+        if(btn.classList.contains('primary-btn')){
+          btn.classList.add('clicked');
+          setTimeout(() => {
+            btn.classList.remove('clicked');
+          }, 200);
+        }
+      });
+    });
+  }
+
+  // Contact form validation feedback
+  function initContactForm(){
+    const form = document.getElementById('contact-form');
+    const formMessage = document.getElementById('form-message');
+    
+    if(!form || !formMessage) return;
+
+    form.addEventListener('submit', (e) => {
+      // Check if form is valid
+      if (!form.checkValidity()) {
+        e.preventDefault();
+        formMessage.textContent = '❌ Please fill in all required fields.';
+        formMessage.style.backgroundColor = 'rgba(220, 53, 69, 0.1)';
+        formMessage.style.color = '#c82333';
+        formMessage.style.display = 'block';
+        return;
+      }
+
+      // Show success message
+      e.preventDefault();
+      formMessage.textContent = '✓ Opening your email client... Your message is ready to send.';
+      formMessage.style.backgroundColor = 'rgba(40, 167, 69, 0.1)';
+      formMessage.style.color = '#28a745';
+      formMessage.style.display = 'block';
+
+      // Delay to let user see message, then submit
+      setTimeout(() => {
+        form.submit();
+      }, 1500);
+    });
+  }
+
   // Update Copyright
   function initCopyright(){
     document.querySelectorAll('.copyright').forEach(el => {
@@ -243,19 +353,29 @@
   // Initialize when DOM is ready
   if(document.readyState === 'loading'){
     document.addEventListener('DOMContentLoaded', () => {
+      loadComponents().then(() => {
+        initToggle();
+        initMenu();
+        initModals();
+        initReveal();
+        initFilters();
+        initCopyright();
+        initContactForm();
+        initClipboard();
+        initButtonFeedback();
+      });
+    });
+  } else {
+    loadComponents().then(() => {
       initToggle();
       initMenu();
       initModals();
       initReveal();
       initFilters();
       initCopyright();
+      initContactForm();
+      initClipboard();
+      initButtonFeedback();
     });
-  } else {
-    initToggle();
-    initMenu();
-    initModals();
-    initReveal();
-    initFilters();
-    initCopyright();
   }
 })();

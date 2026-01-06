@@ -10,24 +10,6 @@
 </head>
 <body>
 
-    <nav>
-        <div class="nav-inner">
-            <button id="menu-toggle" class="menu-toggle" aria-label="Toggle navigation menu">
-                <i class="fas fa-bars"></i>
-            </button>
-            <a href="index.html" class="logo">Angelica Andreasson.</a>
-            <div class="nav-right">
-                <ul class="nav-links">
-                    <li><a href="work.html" class="nav-item">Work</a></li>
-                    <li><a href="about.html" class="nav-item">About</a></li>
-                    <li><a href="contact.html" class="nav-item active" aria-current="page">Contact</a></li>
-                </ul>
-                <button id="theme-toggle" class="theme-toggle" aria-pressed="false" aria-label="Toggle light and dark theme"><i class="fas fa-moon"></i></button>
-            </div>
-        </div>
-    </nav>
-
-
     <main>
         <section class="page-header hidden">
             <h1>Get in Touch</h1>
@@ -35,7 +17,7 @@
         </section>
 
         <section class="contact-container hidden">
-            <form class="contact-form" action="mailto:your-email@example.com" method="post" enctype="text/plain">
+            <form class="contact-form" id="contact-form" action="mailto:angelica.andreasson1@gmail.com" method="post" enctype="text/plain">
                 <label for="name">Name</label>
                 <input id="name" type="text" name="name" required placeholder="Your Name">
 
@@ -48,24 +30,20 @@
                 <div style="text-align:center; margin-top:1.25rem;">
                     <button type="submit" class="primary-btn">Send Message</button>
                 </div>
+                
+                <div id="form-message" class="form-message" style="display: none; text-align: center; margin-top: 1rem; padding: 1rem; border-radius: 6px; font-weight: 500;"></div>
             </form>
+
+            <div class="contact-footnote" style="text-align: center; margin-top: 2rem; font-size: 0.9rem; color: #888;">
+                <p>Your default email client will open to send the message. This ensures your email address and message are kept secure on your device.</p>
+            </div>
 
             <div class="contact-alt" style="text-align:center; margin-top:2.5rem;">
                 <p>Or email me directly at:</p>
-                <a href="mailto:angelica.andreasson1@gmail.com" class="accent-link">angelica.andreasson1@gmail.com</a>
+                <button id="contact-email-copy" class="accent-link" style="background: none; border: none; cursor: pointer; font-weight: 700; font-size: 1.05rem; text-decoration: none; color: var(--accent-green); transition: all 0.3s ease;">angelica.andreasson1@gmail.com</button>
             </div>
         </section>
     </main>
-
-    <footer>
-        <div class="copyright">&copy;  2026 Angelica Andreasson</div>
-        <div class="social-icons">
-            <a href="https://www.linkedin.com/in/angelica-andreasson-400837234/?originalSubdomain=se" target="_blank"><i class="fab fa-linkedin"></i></a>
-            <a href="https://instagram.com/studioandreasson" target="_blank"><i class="fab fa-instagram"></i></a>
-            <a href="mailto:angelica.andreasson1@gmail.com"><i class="fas fa-envelope"></i></a>
-            <a href="Angelica_Andreasson_CV.pdf" target="_blank" class="cv-link cv-btn"><i class="fas fa-file-pdf"></i> CV</a>
-        </div>
-    </footer>
 
     <script src="script.js"></script>
 </body>
