@@ -113,7 +113,7 @@
       title: 'Sony WH-1000XM5',
       subtitle: 'Blender / After Effects / Substance 3D Sampler',
       coverImg: '../../media/BlackHeadphones.png',
-      description: 'This project was an exploration of light refraction and procedural geometry using Geometry Nodes to create floating elements.',
+      description: 'Digital asset of a commerical headphone product, modeled in Blender and textured using Substance 3D Sampler. The final presentation was rendered in Blender and animated in After Effects.',
       video: '../../media/SonyHeadphones.mp4',
       gallery: [
         '../../media/WhiteHeadphones.png',
@@ -124,9 +124,9 @@
     {
       id: 'modal-2',
       title: 'Creality Drill',
-      subtitle: 'Visualization / Blender',
+      subtitle: 'Blender / Fusion 360 / Photoshop',
       coverImg: '../../media/DrillOverview.jpg',
-      description: 'A visualization of a modern Scandinavian home. This project focused on real-time lighting using UE5\'s Lumen system. I modeled the structure in 3ds Max and assembled the scene in Unreal.',
+      description: 'Drill modeled in Fusion 360, textured and rendered in Blender, with final images composed in Photoshop. A study in hard-surface modeling.',
       video: '../../media/DrillTurntable.mp4',
       gallery: [
         '../../media/DrillOverview.jpg',
@@ -137,9 +137,9 @@
     {
       id: 'modal-3',
       title: 'High Heels',
-      subtitle: 'Visualization / Blender',
+      subtitle: 'Blender / Substance 3D Sampler / Photoshop',
       coverImg: '../../media/CoverHeels.png',
-      description: 'A motion design project exploring neon color palettes and kinetic typography in looping sequences.',
+      description: 'High heels modeled and rendered in Blender, textured in Substance 3D Sampler, with final images composed in Photoshop.',
       video: '../../media/HeelTurntable.mp4',
       gallery: [
         '../../media/BrownHeel.png',
@@ -151,9 +151,9 @@
     {
       id: 'modal-4',
       title: 'Perfume Bottle',
-      subtitle: 'Visualization / Blender',
+      subtitle: 'Blender / Fusion 360 / Photoshop',
       coverImg: '../../media/Perfume3.png',
-      description: 'A focused material exploration testing subsurface scattering and micro-surface detail for clay materials.',
+      description: 'Perfume bottle with packaging modeled in Fusion 360, textured and rendered in Blender, with final images composed in Photoshop.',
       gallery: [
         '../../media/Perfume1.png',
         '../../media/Perfume2.png',
@@ -163,9 +163,9 @@
     {
       id: 'modal-5',
       title: 'Impala Rollerskate',
-      subtitle: 'Visualization / Blender',
+      subtitle: 'Blender / Fusion 360 / Photoshop',
       coverImg: '../../media/Rollerskate.png',
-      description: 'A study in daylighting and real-time rendering techniques for an open pavilion concept.',
+      description: 'Rollerskate modeled in Fusion 360, textured and rendered in Blender, with final images composed in Photoshop.',
       gallery: [
         '../../media/Rollerskate2.png',
         '../../media/RollerskateBack.png',
