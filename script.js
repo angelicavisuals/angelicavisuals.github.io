@@ -7,7 +7,11 @@
 
   // Load shared navbar and footer from components.html
   function loadComponents(){
-    return fetch('components.html')
+    // Detect if we're in a subdirectory by checking the current path
+    const isSubdirectory = window.location.pathname.includes('/pages/');
+    const componentsPath = isSubdirectory ? '../../components.html' : 'components.html';
+    
+    return fetch(componentsPath)
       .then(response => response.text())
       .then(html => {
         const parser = new DOMParser();
@@ -102,56 +106,78 @@
   const projectData = [
     {
       id: 'modal-1',
-      title: 'Ethereal Shapes',
-      subtitle: 'Blender Cycles / Geometry Nodes',
-      coverImg: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1000&auto=format&fit=crop',
-      description: 'This project was an exploration of light refraction and procedural geometry. I used Geometry Nodes to create the floating elements and simulated the glass material using a custom shader in Cycles. The goal was to create a calming, abstract loop.',
-      video: 'media/SonyHeadphones.mp4',
+      title: 'Sony WH-1000XM5',
+      subtitle: 'Blender / After Effects / Substance 3D Sampler',
+      coverImg: '../../media/BlackHeadphones.png',
+      description: 'This project was an exploration of light refraction and procedural geometry using Geometry Nodes to create floating elements.',
+      video: '../../media/SonyHeadphones.mp4',
       gallery: [
-        'https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=1000&auto=format&fit=crop',
-        'https://images.unsplash.com/photo-1558655146-d09347e92766?q=80&w=1000&auto=format&fit=crop',
-        'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1000&auto=format&fit=crop'
+        '../../media/WhiteHeadphones.png',
+        '../../media/BlackHeadphones.png',
+        '../../media/BlackHeadphonesWireframe.png'
       ]
     },
     {
       id: 'modal-2',
-      title: 'Modern Villa',
-      subtitle: 'Unreal Engine 5 / Lumen',
-      coverImg: 'https://images.unsplash.com/photo-1633511090164-b43840ea1607?q=80&w=1000&auto=format&fit=crop',
+      title: 'Creality Drill',
+      subtitle: 'Visualization / Blender',
+      coverImg: '../../media/DrillOverview.jpg',
       description: 'A visualization of a modern Scandinavian home. This project focused on real-time lighting using UE5\'s Lumen system. I modeled the structure in 3ds Max and assembled the scene in Unreal.',
+      video: '../../media/DrillTurntable.mp4',
       gallery: [
-        'https://images.unsplash.com/photo-1633511090164-b43840ea1607?q=80&w=1000&auto=format&fit=crop',
-        'https://images.unsplash.com/photo-1633511090164-b43840ea1607?q=80&w=1000&auto=format&fit=crop'
+        '../../media/DrillOverview.jpg',
+        '../../media/DrillDetail.jpg',
+        '../../media/DrillOrto.jpg'
       ]
     },
     {
       id: 'modal-3',
-      title: 'Neon Flux',
-      subtitle: 'Motion Design',
-      coverImg: 'https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=1000&auto=format&fit=crop',
-      description: 'A motion design project exploring neon color palettes and kinetic typography in looping sequences.'
+      title: 'High Heels',
+      subtitle: 'Visualization / Blender',
+      coverImg: '../../media/CoverHeels.png',
+      description: 'A motion design project exploring neon color palettes and kinetic typography in looping sequences.',
+      video: '../../media/HeelTurntable.mp4',
+      gallery: [
+        '../../media/BrownHeel.png',
+        '../../media/BlackHeel.png',
+        '../../media/WhiteHeel.png',
+        '../../media/GreenHeel.png'
+      ]
     },
     {
       id: 'modal-4',
-      title: 'Clay Study',
-      subtitle: 'Material Study',
-      coverImg: 'https://images.unsplash.com/photo-1558655146-d09347e92766?q=80&w=1000&auto=format&fit=crop',
-      description: 'A focused material exploration testing subsurface scattering and micro-surface detail for clay materials.'
+      title: 'Perfume Bottle',
+      subtitle: 'Visualization / Blender',
+      coverImg: '../../media/Perfume3.png',
+      description: 'A focused material exploration testing subsurface scattering and micro-surface detail for clay materials.',
+      gallery: [
+        '../../media/Perfume1.png',
+        '../../media/Perfume2.png',
+        '../../media/Perfume3.png',
+      ]
     },
     {
       id: 'modal-5',
-      title: 'Modern Pavilion',
-      subtitle: 'Architectural Visualization',
-      coverImg: 'https://images.unsplash.com/photo-1506765515384-028b60a970df?q=80&w=1000&auto=format&fit=crop',
-      description: 'A study in daylighting and real-time rendering techniques for an open pavilion concept.'
+      title: 'Impala Rollerskate',
+      subtitle: 'Visualization / Blender',
+      coverImg: '../../media/Rollerskate.png',
+      description: 'A study in daylighting and real-time rendering techniques for an open pavilion concept.',
+      gallery: [
+        '../../media/Rollerskate2.png',
+        '../../media/RollerskateBack.png',
+        '../../media/RollerskateFront.png',
+        '../../media/RollerskateWireframe.png'
+      ]
     },
     {
       id: 'modal-6',
-      title: 'Glass Forms',
-      subtitle: 'Procedural Modeling',
-      coverImg: 'https://images.unsplash.com/photo-1494526585095-c41746248156?q=80&w=1000&auto=format&fit=crop',
-      description: 'Procedural generation of glass-like geometry with focus on refractive performance and composition.'
-    }
+      title: 'Placeholder',
+      subtitle: 'Animation ',
+      coverImg: '../../media/WIP.jpg',
+      description: 'COMING SOON: This project is currently in development and will be available soon. Stay tuned for updates!',
+      gallery: [
+      ]
+    },
   ];
 
   function createModalHTML(project){
@@ -174,7 +200,7 @@
                 </video>
               </div>` : ''}
             ${project.gallery ? `
-              <h3>Process & Wireframes</h3>
+              <h3>Renders & Wireframes</h3>
               <div class="modal-gallery">
                 ${project.gallery.map(img => `<img src="${img}" alt="Gallery image">`).join('')}
               </div>` : ''}
@@ -340,6 +366,77 @@
     });
   }
 
+  // Preload pages on hover for instant navigation with cache-on-click
+  function initPreload(){
+    const pageCache = new Map();
+    
+    // Wait for components to load, then attach preload listeners
+    const attachPreloadListeners = () => {
+      const navLinks = document.querySelectorAll('a[href*="pages/"]');
+      console.log(`Found ${navLinks.length} page links to preload`);
+      
+      navLinks.forEach((link, index) => {
+        link.addEventListener('mouseenter', () => {
+          const href = link.getAttribute('href');
+          
+          // Skip if already cached
+          if(pageCache.has(href)) {
+            console.log(`↻ Already cached: ${href}`);
+            return;
+          }
+          
+          // Fetch and cache the page HTML
+          fetch(href)
+            .then(response => response.text())
+            .then(html => {
+              pageCache.set(href, html);
+              console.log(`✓ Preloaded: ${href}`);
+            })
+            .catch(err => console.warn(`✗ Preload failed for ${href}:`, err));
+        });
+        
+        // Intercept clicks to load from cache instantly
+        link.addEventListener('click', (e) => {
+          const href = link.getAttribute('href');
+          const cachedHTML = pageCache.get(href);
+          
+          if(cachedHTML) {
+            e.preventDefault();
+            console.log(`⚡ Loading from cache: ${href}`);
+            
+            // Replace page content instantly
+            document.documentElement.innerHTML = cachedHTML;
+            
+            // Update URL without reload
+            window.history.pushState({}, '', href);
+            
+            // Re-initialize scripts on new page
+            setTimeout(() => {
+              loadComponents().then(() => {
+                initToggle();
+                initMenu();
+                initModals();
+                initReveal();
+                initFilters();
+                initCopyright();
+                initContactForm();
+                initClipboard();
+                initButtonFeedback();
+                attachPreloadListeners(); // Re-attach for new page links
+              });
+            }, 50);
+          }
+        });
+      });
+    };
+    
+    // Attach listeners when components are loaded
+    setTimeout(attachPreloadListeners, 100);
+    
+    // Store cache in window for inspection
+    window.pageCache = pageCache;
+  }
+
   // Update Copyright
   function initCopyright(){
     document.querySelectorAll('.copyright').forEach(el => {
@@ -376,6 +473,7 @@
       initContactForm();
       initClipboard();
       initButtonFeedback();
+      initPreload();
     });
   }
 })();

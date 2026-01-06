@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script>/* Prevent theme flash: apply stored or preferred theme early */(function(){try{var s=localStorage.getItem('theme');if(s==='dark'||(!s&&window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches)){document.documentElement.setAttribute('data-theme','dark');} }catch(e){} })();</script>
+    <title> Angelica Andreasson </title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../../style.css">
+</head>
+<body class="home-page">
+    <noscript>
+        <div class="noscript-warning">
+            <i class="fas fa-exclamation-circle"></i>
+            <div>
+                <strong>JavaScript is disabled</strong>
+                <p>This website requires JavaScript to function properly. Please enable JavaScript in your browser settings to access all features.</p>
+            </div>
+        </div>
+    </noscript>
+
+    <main>
+        <header id="hero" class="hero--compact">
+            <video class="hero-video" autoplay muted loop playsinline>
+                <source src="../../media/hero-home.mp4" type="video/mp4">
+                <source src="../../media/hero-home.gif" type="image/gif">
+            </video>
+            <div class="hero-text hidden centered">
+                <h1>Angelica⠀⠀⠀⠀⠀<br>⠀⠀⠀Andreasson.</h1>
+                <p class="hero-intro">
+                    Visualizing concepts through 3D motion & design.
+                </p>
+                <p class="hero-location">
+                    Based in Gothenburg, Sweden.
+                </p>
+            </div>
+        </header>
+
+        <section class="gallery-section home-gallery">
+            <h3 class="section-title hidden">Selected Works</h3>
+            
+            <div class="gallery-grid">
+                <div class="project-card hidden" onclick="openModal('modal-1')">
+                    <img src="../../media/BlackHeadphones.png" class="project-image" alt="Sony WH-1000XM5 headphones" loading="lazy">
+                    <div class="project-info">
+                        <h3>Sony WH-1000XM5</h3>
+                        <p>Visualization / Blender</p>
+                    </div>
+                </div>
+
+                <div class="project-card hidden" onclick="openModal('modal-2')">
+                    <img src="../../media/DrillOverview.jpg" class="project-image" alt="Creality Drill - Visualization" loading="lazy">
+                    <div class="project-info">
+                        <h3>Creality Drill</h3>
+                        <p>Visualization / Blender</p>
+                    </div>
+                </div>
+
+                <div class="project-card hidden" onclick="openModal('modal-5')">
+                    <img src="../../media/Rollerskate.png" class="project-image" alt="Impala Rollerskate - Visualization" loading="lazy">
+                    <div class="project-info">
+                        <h3>Impala Rollerskate</h3>
+                        <p>Visualization / Blender</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="btn-container hidden">
+                <a href="../../pages/work/" class="primary-btn">View All Projects</a>
+            </div>
+        </section>
+
+        <section id="home-about" class="hidden">
+            <div class="home-about-image">
+                <img src="../../media/portrait.jpg" alt="Angelica Andreasson Portrait">
+            </div>
+            <div class="about-content">
+                <h2>About Me</h2>
+                <p>I am a Computer Graphics Designer student based in Gothenburg, focusing on product and design visualization. I am passionate about creating visually compelling and meaningful experiences.</p>
+                <a href="../../pages/about/" style="color: var(--text-color); font-weight: 600; border-bottom: 2px solid var(--accent-green); transition: all 0.3s ease; cursor: pointer;" onmouseover="this.style.color='var(--accent-green)'" onmouseout="this.style.color='var(--text-color)'">Read Full Bio</a>
+            </div>
+        </section>
+    </main>
+
+    <!-- Shared navbar and footer are loaded via script.js -->
+
+    <script src="../../script.js"></script>
+</body>
+</html>

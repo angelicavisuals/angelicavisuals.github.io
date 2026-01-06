@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script>/* Prevent theme flash: apply stored or preferred theme early */(function(){try{var s=localStorage.getItem('theme');if(s==='dark'||(!s&&window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches)){document.documentElement.setAttribute('data-theme','dark');} }catch(e){} })();</script>
+    <title> Projects | Angelica Andreasson</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../../style.css">
+</head>
+<body class="work-page">
+    <noscript>
+        <div class="noscript-warning">
+            <i class="fas fa-exclamation-circle"></i>
+            <div>
+                <strong>JavaScript is disabled</strong>
+                <p>This website requires JavaScript to function properly. Please enable JavaScript in your browser settings to access all features.</p>
+            </div>
+        </div>
+    </noscript>
+
+    <main>
+        <header id="hero" class="hero--compact">
+            <video class="hero-video" autoplay muted loop playsinline>
+                <source src="../../media/hero-work.mp4" type="video/mp4">
+                <source src="../../media/hero-work.gif" type="image/gif">
+            </video>
+            <div class="hero-text hidden centered">
+                <h1>Project⠀⠀⠀⠀<br>⠀⠀⠀Portfolio.</h1>
+                <h2>WORK IN PROGRESS</h2>
+                <p class="hero-intro">Click on a project to view process, wireframes, and animations.</p>
+            </div>
+        </header>
+
+        <section class="gallery-section work-gallery">
+            <div class="filters hidden" aria-label="Project filters">
+                <button class="filter-btn active" data-filter="all">All</button>
+                <button class="filter-btn" data-filter="visualization">Visualization</button>
+                <button class="filter-btn" data-filter="animation">Animation</button>
+            </div>
+            <div class="gallery-grid">
+
+                <div class="project-card hidden" data-category="visualization" onclick="openModal('modal-1')">
+                    <img src="../../media/BlackHeadphones.png" class="project-image" alt="Sony WH-1000XM5 project cover" loading="lazy">
+                    <div class="project-info">
+                        <h3>Sony WH-1000XM5</h3>
+                        <p>Visualization / Blender</p>
+                    </div>
+                </div>
+
+                <div class="project-card hidden" data-category="visualization" onclick="openModal('modal-2')">
+                    <img src="../../media/DrillOverview.jpg" class="project-image" alt="Creality Drill project cover" loading="lazy">
+                    <div class="project-info">
+                        <h3>Creality Drill</h3>
+                        <p>Visualization / Blender</p>
+                    </div>
+                </div>
+
+                <div class="project-card hidden" data-category="visualization" onclick="openModal('modal-3')">
+                    <img src="../../media/CoverHeels2.png" class="project-image" alt="High Heels project cover" loading="lazy">
+                    <div class="project-info">
+                        <h3>High Heels</h3>
+                        <p>Visualization / Blender</p>
+                    </div>
+                </div>
+
+                <div class="project-card hidden" data-category="visualization" onclick="openModal('modal-4')">
+                    <img src="../../media/Perfume3.png" class="project-image" alt="Perfume Bottle project cover" loading="lazy">
+                    <div class="project-info">
+                        <h3>Perfume Bottle</h3>
+                        <p>Visualization / Blender</p>
+                    </div>
+                </div>
+
+                <div class="project-card hidden" data-category="visualization" onclick="openModal('modal-5')">
+                    <img src="../../media/Rollerskate.png" class="project-image" alt="Impala Rollerskate project cover" loading="lazy">
+                    <div class="project-info">
+                        <h3>Impala Rollerskate</h3>
+                        <p>Visualization / Blender</p>
+                    </div>
+                </div>
+
+                <div class="project-card hidden" data-category="animation" onclick="openModal('modal-6')">
+                    <img src="../../media/WIP.jpg" class="project-image" alt="Placeholder project cover" loading="lazy">
+                    <div class="project-info">
+                        <h3>Placeholder</h3>
+                        <p>Animation</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Shared navbar and footer are loaded via script.js -->
+
+    <script src="../../script.js"></script>
+</body>
+</html>
