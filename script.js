@@ -387,6 +387,26 @@
     }
   }
 
+  // Highlight current page in navigation
+  function initActiveNav(){
+    const currentPath = window.location.pathname;
+    const navLinks = document.querySelectorAll('.nav-links a.nav-item');
+    
+    navLinks.forEach(link => {
+      const href = link.getAttribute('href');
+      // Check if the link matches the current page
+      if (currentPath.includes('/work/') && href.includes('/work/')) {
+        link.classList.add('active');
+      } else if (currentPath.includes('/about/') && href.includes('/about/')) {
+        link.classList.add('active');
+      } else if (currentPath.includes('/contact/') && href.includes('/contact/')) {
+        link.classList.add('active');
+      } else if ((currentPath.includes('/pages/home/') || currentPath.endsWith('Portfolio/') || currentPath.endsWith('Portfolio/index.html')) && href.includes('/home/')) {
+        link.classList.add('active');
+      }
+    });
+  }
+
   // Button click feedback - add clicked state to primary buttons
   function initButtonFeedback(){
     document.querySelectorAll('.primary-btn, button[type="submit"]').forEach(btn => {
@@ -519,6 +539,7 @@
       initContactForm();
       initClipboard();
       initButtonFeedback();
+      initActiveNav();
     });
   };
 
