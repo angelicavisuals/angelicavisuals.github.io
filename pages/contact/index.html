@@ -26,15 +26,20 @@
         </section>
 
         <section class="contact-container hidden">
-            <form class="contact-form" id="contact-form" action="mailto:angelica.andreasson1@gmail.com" method="post" enctype="text/plain">
+            <form class="contact-form" id="contact-form" action="https://api.web3forms.com/submit" method="POST">
+                
+                <input type="hidden" name="access_key" value="1a7cd653-9f0f-484d-bf81-65b691f89579">
+
                 <label for="name">Name</label>
-                <input id="name" type="text" name="name" required placeholder="Your Name">
+                <input id="name" type="text" name="name" autocomplete="name" required placeholder="Your Name">
 
                 <label for="email">Email</label>
-                <input id="email" type="email" name="email" required placeholder="your@email.com">
+                <input id="email" type="email" name="email" autocomplete="email" required placeholder="your@email.com">
 
                 <label for="message">Message</label>
-                <textarea id="message" name="message" rows="6" required placeholder="Tell me about your project..."></textarea>
+                <textarea id="message" name="message" autocomplete="off" rows="6" required placeholder="Tell me about your project..."></textarea>
+
+                <input type="hidden" name="redirect" value="https://angelicavisuals.github.io/pages/contact/thanks.html">
 
                 <div style="text-align:center; margin-top:1.25rem;">
                     <button type="submit" class="primary-btn">Send Message</button>
@@ -44,7 +49,7 @@
             </form>
 
             <div class="contact-footnote" style="text-align: center; margin-top: 2rem; font-size: 0.9rem; color: #888;">
-                <p>Your default email client will open to send the message. This ensures your email address and message are kept secure on your device.</p>
+                <p>Your message will be sent securely. I'll respond as soon as possible.</p>
             </div>
 
             <div class="contact-alt" style="text-align:center; margin-top:2.5rem;">

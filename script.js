@@ -406,31 +406,94 @@
   function initContactForm(){
     const form = document.getElementById('contact-form');
     const formMessage = document.getElementById('form-message');
+    const submitBtn = form ? form.querySelector('button[type="submit"]') : null;
     
-    if(!form || !formMessage) return;
+    if(!form || !formMessage || !submitBtn) return;
+
+    // Cooldown time in milliseconds (60 seconds)
+    const COOLDOWN_TIME = 60000;
+    let lastSubmitTime = localStorage.getItem('lastFormSubmit') ? parseInt(localStorage.getItem('lastFormSubmit')) : 0;
 
     form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      
       // Check if form is valid
       if (!form.checkValidity()) {
-        e.preventDefault();
-        formMessage.textContent = '❌ Please fill in all required fields.';
+        formMessage.textContent = 'Please fill in all required fields.';
         formMessage.style.backgroundColor = 'rgba(220, 53, 69, 0.1)';
         formMessage.style.color = '#c82333';
         formMessage.style.display = 'block';
         return;
       }
 
-      // Show success message
-      e.preventDefault();
-      formMessage.textContent = '✓ Opening your email client... Your message is ready to send.';
-      formMessage.style.backgroundColor = 'rgba(40, 167, 69, 0.1)';
-      formMessage.style.color = '#28a745';
+      // Check cooldown
+      const now = Date.now();
+      const timeSinceLastSubmit = now - lastSubmitTime;
+      
+      if (timeSinceLastSubmit < COOLDOWN_TIME) {
+        const secondsRemaining = Math.ceil((COOLDOWN_TIME - timeSinceLastSubmit) / 1000);
+        formMessage.textContent = `Please wait ${secondsRemaining} seconds before sending another message.`;
+        formMessage.style.backgroundColor = 'rgba(255, 193, 7, 0.1)';
+        formMessage.style.color = '#ffc107';
+        formMessage.style.display = 'block';
+        return;
+      }
+
+      // Confirmation dialog
+      const isConfirmed = confirm('Send this message?\n\nPlease review your message before confirming.');
+      if (!isConfirmed) {
+        formMessage.textContent = '';
+        formMessage.style.display = 'none';
+        return;
+      }
+
+      // Disable button to prevent multiple clicks
+      submitBtn.disabled = true;
+      submitBtn.style.opacity = '0.6';
+      submitBtn.style.cursor = 'not-allowed';
+
+      // Show sending message
+      formMessage.textContent = '⏳ Sending your message...';
+      formMessage.style.backgroundColor = 'rgba(0, 123, 255, 0.1)';
+      formMessage.style.color = '#0056b3';
       formMessage.style.display = 'block';
 
-      // Delay to let user see message, then submit
-      setTimeout(() => {
-        form.submit();
-      }, 1500);
+      // Update last submit time
+      localStorage.setItem('lastFormSubmit', now.toString());
+      lastSubmitTime = now;
+
+      // Use FormData to capture all form data
+      const formData = new FormData(form);
+      
+      // Submit via fetch to Web3Forms API
+      fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        body: formData
+      })
+      .then(response => {
+        if (response.ok) {
+          formMessage.textContent = '✓ Message sent successfully! Redirecting...';
+          formMessage.style.backgroundColor = 'rgba(40, 167, 69, 0.1)';
+          formMessage.style.color = '#28a745';
+          formMessage.style.display = 'block';
+          
+          // Redirect to custom thank-you page
+          setTimeout(() => {
+            window.location.href = 'https://angelicavisuals.github.io/pages/contact/thanks.html';
+          }, 1500);
+        } else {
+          throw new Error('Form submission failed');
+        }
+      })
+      .catch(error => {
+        formMessage.textContent = '❌ Error sending message. Please try again.';
+        formMessage.style.backgroundColor = 'rgba(220, 53, 69, 0.1)';
+        formMessage.style.color = '#c82333';
+        formMessage.style.display = 'block';
+        submitBtn.disabled = false;
+        submitBtn.style.opacity = '1';
+        submitBtn.style.cursor = 'pointer';
+      });
     });
   }
 

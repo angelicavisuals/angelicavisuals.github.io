@@ -1113,32 +1113,35 @@ footer {
 /* Clipboard notification popup */
 .clipboard-notification {
     position: fixed;
-    top: 80px;
+    bottom: 2rem;
     right: 2rem;
     background: var(--accent-green);
     color: white;
-    padding: 1rem 1.5rem;
+    padding: 0.875rem 1.25rem;
     border-radius: 8px;
     display: flex;
     align-items: center;
     gap: 0.75rem;
     font-weight: 500;
+    font-size: 0.95rem;
     box-shadow: 0 8px 24px rgba(0,0,0,0.15);
     opacity: 0;
-    transform: translateX(500px);
+    transform: translateY(200px);
     transition: all 0.5s ease-out;
     pointer-events: none;
     z-index: 3000;
+    white-space: nowrap;
+    max-width: 90vw;
 }
 
 .clipboard-notification.show {
     opacity: 1;
-    transform: translateX(0);
+    transform: translateY(0);
     pointer-events: auto;
 }
 
 .clipboard-notification i {
-    font-size: 1.2rem;
+    font-size: 1rem;
 }
 
 /* Animation Utility Classes */
@@ -1164,7 +1167,7 @@ footer {
     .close-btn { top: 10px; right: 15px; width: 36px; height: 36px; font-size: 1.2rem; }
     
     /* Clipboard notification mobile */
-    .clipboard-notification { bottom: 1rem; right: 1rem; left: 1rem; width: auto; }
+    .clipboard-notification { bottom: 1rem; right: 1rem; left: 1rem; width: auto; max-width: none; padding: 0.75rem 1rem; font-size: 0.9rem; white-space: normal; }
 }
 
 @media (max-width: 480px) {
