@@ -62,9 +62,9 @@ export const Header = () => {
         <header
           className={`pointer-events-auto flex items-center justify-between overflow-hidden backdrop-blur-xl border-b w-full transition-all duration-500 ease-in-out ${
             scrolled 
-              ? 'bg-zinc-50/20 dark:bg-zinc-950/20 h-14 border-transparent shadow-none' 
-              : 'bg-zinc-50/80 dark:bg-zinc-950/80 h-16 border-zinc-200 dark:border-white/10 shadow-sm hover:bg-zinc-50/95 hover:dark:bg-zinc-950/95'
-          } hover:bg-zinc-50/95 hover:dark:bg-zinc-950/95 hover:border-zinc-200 hover:dark:border-white/10 hover:shadow-sm`}
+              ? 'bg-white/0 dark:bg-zinc-950/0 h-14 border-transparent shadow-none hover:bg-white/20 hover:dark:bg-zinc-950/20' 
+              : 'bg-zinc-50 dark:bg-zinc-950 h-16 border-zinc-200 dark:border-white/10 shadow-sm'
+          }`}
         >
           <div className="flex items-center justify-between w-full h-full px-4 sm:px-6 md:px-12 mx-auto max-w-[1920px]">
             <div className="hover:opacity-80 transition-opacity min-w-max">
