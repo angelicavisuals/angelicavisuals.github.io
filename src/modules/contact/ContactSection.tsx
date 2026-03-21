@@ -40,11 +40,11 @@ export const ContactSection = () => {
           <div className="flex flex-col md:flex-row gap-6">
             <div className="flex flex-col gap-2 w-full">
               <label htmlFor="name" className="text-sm font-medium text-zinc-700 dark:text-zinc-300">Name</label>
-              <input id="name" type="text" name="name" required placeholder="Your Name" className="w-full px-6 py-4 rounded-2xl bg-zinc-100 dark:bg-zinc-900 border border-transparent focus:border-[var(--color-brand)] focus:bg-white dark:focus:bg-zinc-950 outline-none transition-all placeholder:text-zinc-400" />
+              <input id="name" type="text" name="name" autoComplete="name" required placeholder="Your Name" className="w-full px-6 py-4 rounded-2xl bg-zinc-100 dark:bg-zinc-900 border border-transparent focus:border-[var(--color-brand)] focus:bg-white dark:focus:bg-zinc-950 outline-none transition-all placeholder:text-zinc-400" />
             </div>
             <div className="flex flex-col gap-2 w-full">
               <label htmlFor="email" className="text-sm font-medium text-zinc-700 dark:text-zinc-300">Email</label>
-              <input id="email" type="email" name="email" required placeholder="your@email.com" className="w-full px-6 py-4 rounded-2xl bg-zinc-100 dark:bg-zinc-900 border border-transparent focus:border-[var(--color-brand)] focus:bg-white dark:focus:bg-zinc-950 outline-none transition-all placeholder:text-zinc-400" />
+              <input id="email" type="email" name="email" autoComplete="email" required placeholder="your@email.com" className="w-full px-6 py-4 rounded-2xl bg-zinc-100 dark:bg-zinc-900 border border-transparent focus:border-[var(--color-brand)] focus:bg-white dark:focus:bg-zinc-950 outline-none transition-all placeholder:text-zinc-400" />
             </div>
           </div>
 
