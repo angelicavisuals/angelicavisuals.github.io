@@ -1,12 +1,72 @@
 import { motion } from 'framer-motion';
 
-const SKILLS: { name: string; url: string; icon: string }[] = [
-  { name: 'Blender', url: 'https://www.blender.org/', icon: 'https://cdn.simpleicons.org/blender/white' },
-  { name: 'Fusion 360', url: 'https://www.autodesk.com/products/fusion-360/', icon: 'https://cdn.simpleicons.org/autodesk/white' },
-  { name: 'Photoshop', url: 'https://www.adobe.com/products/photoshop.html', icon: 'https://api.iconify.design/devicon-plain:photoshop.svg?color=white' },
-  { name: 'Autodesk Inventor', url: 'https://www.autodesk.com/products/inventor/', icon: 'https://cdn.simpleicons.org/autodesk/white' },
-  { name: 'DaVinci Resolve', url: 'https://www.blackmagicdesign.com/products/davinciresolve', icon: 'https://cdn.simpleicons.org/davinciresolve/white' },
-  { name: 'After Effects', url: 'https://www.adobe.com/products/aftereffects.html', icon: 'https://api.iconify.design/devicon-plain:aftereffects.svg?color=white' },
+const SKILLS: { name: string; url: string; icon: string; hoverAnim: any }[] = [
+  { 
+    name: 'Blender', 
+    url: 'https://www.blender.org/', 
+    icon: 'https://cdn.simpleicons.org/blender/white',
+    // 3D rotation for a 3D modeling tool
+    hoverAnim: { 
+      scale: 1.15, 
+      rotateY: 360,
+      transition: { rotateY: { repeat: Infinity, duration: 1.5, ease: "linear" }, scale: { duration: 0.2 } }
+    }
+  },
+  { 
+    name: 'Fusion 360', 
+    url: 'https://www.autodesk.com/products/fusion-360/', 
+    icon: 'https://cdn.simpleicons.org/autodesk/white',
+    // Mechanical forward rotation on X axis
+    hoverAnim: { 
+      scale: 1.15,
+      rotateX: -360,
+      transition: { rotateX: { repeat: Infinity, duration: 1.5, ease: "linear" }, scale: { duration: 0.2 } }
+    }
+  },
+  { 
+    name: 'Photoshop', 
+    url: 'https://www.adobe.com/products/photoshop.html', 
+    icon: 'https://api.iconify.design/devicon-plain:photoshop.svg?color=white',
+    // 2D skewing & stretching like editing an image
+    hoverAnim: { 
+      scale: [1, 1.15, 1.15, 1.15],
+      skewX: [0, -10, 10, 0],
+      transition: { skewX: { repeat: Infinity, duration: 1 }, scale: { duration: 0.2 } }
+    }
+  },
+  { 
+    name: 'Autodesk Inventor', 
+    url: 'https://www.autodesk.com/products/inventor/', 
+    icon: 'https://cdn.simpleicons.org/autodesk/white',
+    // Spinning like a mechanical gear
+    hoverAnim: { 
+      scale: 1.15,
+      rotate: 360,
+      transition: { rotate: { repeat: Infinity, duration: 2, ease: "linear" }, scale: { duration: 0.2 } }
+    }
+  },
+  { 
+    name: 'DaVinci Resolve', 
+    url: 'https://www.blackmagicdesign.com/products/davinciresolve', 
+    icon: 'https://cdn.simpleicons.org/davinciresolve/white',
+    // Sliding back and forth like scrubbing a video timeline
+    hoverAnim: { 
+      scale: 1.15,
+      x: [0, 8, -8, 0],
+      transition: { x: { repeat: Infinity, duration: 1.2, ease: "easeInOut" }, scale: { duration: 0.2 } }
+    }
+  },
+  { 
+    name: 'After Effects', 
+    url: 'https://www.adobe.com/products/aftereffects.html', 
+    icon: 'https://api.iconify.design/devicon-plain:aftereffects.svg?color=white',
+    // Exaggerated bouncy motion for motion graphics
+    hoverAnim: { 
+      scale: 1.15,
+      y: [0, -10, 0],
+      transition: { y: { repeat: Infinity, duration: 0.6, ease: "easeOut" }, scale: { duration: 0.2 } }
+    }
+  },
 ];
 
 export const AboutSection = () => {
@@ -41,16 +101,9 @@ export const AboutSection = () => {
                   href={skill.url}
                   target="_blank"
                   rel="noreferrer"
-                  initial={{ opacity: 0, scale: 0.9, y: 10, rotateY: 0 }}
+                  initial={{ opacity: 0, scale: 0.9, y: 10, rotateY: 0, rotateX: 0, skewX: 0, x: 0 }}
                   whileInView={{ opacity: 1, scale: 1, y: 0 }}
-                  whileHover={{ 
-                    scale: 1.15, 
-                    rotateY: 360,
-                    transition: { 
-                      rotateY: { repeat: Infinity, duration: 1.2, ease: "linear" },
-                      scale: { duration: 0.2 } 
-                    }
-                  }}
+                  whileHover={skill.hoverAnim}
                   whileTap={{ scale: 0.95 }}
                   viewport={{ once: true }}
                   transition={{ delay: i * 0.05, duration: 0.2 }}
