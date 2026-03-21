@@ -7,9 +7,10 @@ export interface ProjectGridProps {
   projectIds?: number[];
   title?: string;
   showFilters?: boolean;
+  fixedAspectRatio?: boolean;
 }
 
-export const ProjectGrid = ({ projectIds, title = 'Selected Work', showFilters = true }: ProjectGridProps = {}) => {
+export const ProjectGrid = ({ projectIds, title = 'Selected Work', showFilters = true, fixedAspectRatio = false }: ProjectGridProps = {}) => {
   const [filter, setFilter] = useState('All');
   const [selectedId, setSelectedId] = useState<number | null>(null);
 
@@ -80,9 +81,9 @@ export const ProjectGrid = ({ projectIds, title = 'Selected Work', showFilters =
             >
               <motion.div
                 layoutId={`image-${item.id}`} 
-                className="w-full relative overflow-hidden rounded-3xl bg-zinc-100 dark:bg-zinc-900 border border-zinc-200/50 dark:border-white/5 shadow-sm"
+                className={`w-full relative overflow-hidden rounded-3xl bg-zinc-100 dark:bg-zinc-900 border border-zinc-200/50 dark:border-white/5 shadow-sm ${fixedAspectRatio ? 'aspect-[4/3]' : ''}`}
               >
-                <img src={item.image} alt={item.title} className="w-full h-auto block transition-transform duration-700 ease-out group-hover:scale-105" loading="lazy" />
+                <img src={item.image} alt={item.title} className={`w-full block transition-transform duration-700 ease-out group-hover:scale-105 ${fixedAspectRatio ? 'h-full object-cover' : 'h-auto'}`} loading="lazy" />
                 <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-500 pointer-events-none" />
               </motion.div>
               <div className="px-1 pb-2">
