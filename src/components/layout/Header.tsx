@@ -62,7 +62,7 @@ export const Header = () => {
         <header
           className={`pointer-events-auto flex items-center justify-between overflow-hidden backdrop-blur-xl border-b w-full transition-all duration-500 ease-in-out ${
             scrolled 
-              ? 'bg-white/0 dark:bg-zinc-950/0 h-14 border-transparent shadow-none hover:bg-white/20 hover:dark:bg-zinc-950/20' 
+              ? 'bg-white/0 dark:bg-zinc-950/0 h-14 border-transparent shadow-none hover:bg-zinc-50 hover:dark:bg-zinc-950' 
               : 'bg-zinc-50 dark:bg-zinc-950 h-16 border-zinc-200 dark:border-white/10 shadow-sm'
           }`}
         >
