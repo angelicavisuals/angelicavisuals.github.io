@@ -1,0 +1,76 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme {
+  --color-brand: #6fa07a;
+  --color-brand-dark: #4d7a57;
+  --color-brand-light: #8cbd96;
+
+  /* Sophisticated neutral grey-beige scale */
+  --color-zinc-50: #edecea;
+  --color-zinc-100: #e3e2e0;
+  --color-zinc-200: #d5d4d2;
+  --color-zinc-300: #b8b7b5;
+  --color-zinc-400: #939290;
+  --color-zinc-500: #747372;
+  --color-zinc-600: #575655;
+  --color-zinc-700: #3c3b3b;
+  --color-zinc-800: #252424;
+  --color-zinc-900: #000000;
+  --color-zinc-950: #000000;
+}
+
+body {
+  background-color: var(--color-zinc-50);
+  color: var(--color-zinc-900);
+  font-family: 'Geist', 'Satoshi', 'Inter', sans-serif;
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.dark body {
+  background-color: var(--color-zinc-950);
+  color: var(--color-zinc-50);
+}
+
+/* Minimal overlay scrollbar */
+html {
+  scrollbar-gutter: auto;
+  scroll-behavior: smooth;
+}
+::-webkit-scrollbar {
+  display: none;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: transparent;
+}
+
+/* Firefox */
+* {
+  scrollbar-width: none;
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+.animate-marquee {
+  animation: marquee 160s linear infinite;
+}
+.animate-marquee-reverse {
+  animation: marquee 160s linear infinite reverse;
+}
