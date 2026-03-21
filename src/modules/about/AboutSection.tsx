@@ -27,11 +27,11 @@ const SKILLS: { name: string; url: string; icon: string; hoverAnim: any }[] = [
     name: 'Photoshop', 
     url: 'https://www.adobe.com/products/photoshop.html', 
     icon: 'https://api.iconify.design/devicon-plain:photoshop.svg?color=white',
-    // 2D skewing & stretching like editing an image
+    // Tilting gently side-to-side like a photo print
     hoverAnim: { 
-      scale: [1, 1.15, 1.15, 1.15],
-      skewX: [0, -10, 10, 0],
-      transition: { skewX: { repeat: Infinity, duration: 1 }, scale: { duration: 0.2 } }
+      scale: 1.15,
+      rotate: [0, -5, 5, -5, 0],
+      transition: { rotate: { repeat: Infinity, duration: 1.5, ease: "easeInOut" }, scale: { duration: 0.2 } }
     }
   },
   { 
@@ -101,7 +101,7 @@ export const AboutSection = () => {
                   href={skill.url}
                   target="_blank"
                   rel="noreferrer"
-                  initial={{ opacity: 0, scale: 0.9, y: 10, rotateY: 0, rotateX: 0, skewX: 0, x: 0 }}
+                  initial={{ opacity: 0, scale: 0.9, y: 10, rotateY: 0, rotateX: 0, skewX: 0, x: 0, rotate: 0 }}
                   whileInView={{ opacity: 1, scale: 1, y: 0 }}
                   whileHover={skill.hoverAnim}
                   whileTap={{ scale: 0.95 }}
