@@ -7,8 +7,8 @@ export const WorkPage = () => {
   }, []);
 
   return (
-    <main className="max-w-[1400px] mx-auto px-4 md:px-8 relative pb-12 pt-8">
-      <ProjectGrid title="All Works" />
+    <main className="max-w-[1400px] mx-auto px-4 md:px-8 relative pt-8">
+      <ProjectGrid title="All Works" layoutScope="work" deferInitialReveal={true} />
     </main>
   );
 };

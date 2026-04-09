@@ -8,24 +8,61 @@ export interface ProjectGridProps {
   title?: string;
   showFilters?: boolean;
   fixedAspectRatio?: boolean;
+  layoutScope?: string;
+  deferInitialReveal?: boolean;
 }
 
-export const ProjectGrid = ({ projectIds, title = 'Selected Work', showFilters = true, fixedAspectRatio = false }: ProjectGridProps = {}) => {
+export const ProjectGrid = ({ projectIds, title = 'Selected Work', showFilters = true, fixedAspectRatio = false, layoutScope = 'work', deferInitialReveal = false }: ProjectGridProps = {}) => {
   const [filter, setFilter] = useState('All');
   const [selectedId, setSelectedId] = useState<number | null>(null);
+  const [isReady, setIsReady] = useState(!deferInitialReveal);
 
   useEffect(() => {
-    // Preload gallery images and cover images to prevent lag when modal opens
-    PROJECTS.forEach(p => {
-      // It's possible the cover image isn't the same file size, preload just in case
-      const cover = new Image();
-      cover.src = p.image;
-      p.gallery.forEach(imgUrl => {
-        const img = new Image();
-        img.src = imgUrl;
-      });
-    });
+    if (!deferInitialReveal) {
+      return;
+    }
+
+    let cancelled = false;
+
+    const preloadCoverImages = async () => {
+      const promises = orderedBaseProjects.map(project => new Promise<void>(resolve => {
+        const image = new Image();
+        image.src = project.image;
+        image.onload = () => resolve();
+        image.onerror = () => resolve();
+
+        if (image.complete) {
+          resolve();
+        }
+      }));
+
+      await Promise.all(promises);
+
+      if (!cancelled) {
+        setIsReady(true);
+      }
+    };
+
+    void preloadCoverImages();
+
+    return () => {
+      cancelled = true;
+    };
   }, []);
+
+  useEffect(() => {
+    const preloadGalleryImages = () => {
+      PROJECTS.forEach(project => {
+        project.gallery.forEach(imgUrl => {
+          const image = new Image();
+          image.src = imgUrl;
+        });
+      });
+    };
+
+    const timeoutId = window.setTimeout(preloadGalleryImages, deferInitialReveal ? 500 : 0);
+    return () => window.clearTimeout(timeoutId);
+  }, [deferInitialReveal]);
 
   const baseProjects = projectIds ? PROJECTS.filter(p => projectIds.includes(p.id)) : PROJECTS;
 
@@ -45,7 +82,14 @@ export const ProjectGrid = ({ projectIds, title = 'Selected Work', showFilters =
   const selectedProject = PROJECTS.find(p => p.id === selectedId);
 
   return (
-    <section id="work" className="py-24 relative block">
+    <motion.section
+      id="work"
+      initial={deferInitialReveal ? { opacity: 0, y: 10 } : false}
+      animate={isReady ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
+      transition={deferInitialReveal ? { duration: 0.9, delay: 0.05, ease: [0.16, 1, 0.3, 1] } : { duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+      className="py-24 relative block"
+      style={{ visibility: deferInitialReveal && !isReady ? 'hidden' : 'visible' }}
+    >
       <div className={`mb-8 sm:mb-12 flex flex-col sm:flex-row sm:justify-between sm:items-end gap-4 ${showFilters ? 'border-b border-zinc-200 dark:border-zinc-800' : ''} pb-4 sm:pb-6`}>
         <h2 className="text-2xl sm:text-3xl tracking-tight">
           {title === 'All Works' ? (filter === 'All' ? 'All Works' : `${filter} Works`) : title}
@@ -71,7 +115,7 @@ export const ProjectGrid = ({ projectIds, title = 'Selected Work', showFilters =
             return (
             <motion.div
               layout
-              initial={{ opacity: 0, y: 20 }}
+              initial={false}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.9 }}
               transition={{ layout: { type: 'spring', stiffness: 300, damping: 30 }, duration: 0.3 }}
@@ -80,15 +124,15 @@ export const ProjectGrid = ({ projectIds, title = 'Selected Work', showFilters =
               className="group cursor-pointer flex flex-col gap-3 relative w-full break-inside-avoid mb-6"
             >
               <motion.div
-                layoutId={`image-${item.id}`} 
+                layoutId={`${layoutScope}-image-${item.id}`} 
                 className={`w-full relative overflow-hidden rounded-3xl bg-zinc-100 dark:bg-zinc-900 border border-zinc-200/50 dark:border-white/5 shadow-sm ${fixedAspectRatio ? 'aspect-[4/3]' : ''}`}
               >
                 <img src={item.image} alt={item.title} className={`w-full block transition-transform duration-700 ease-out group-hover:scale-105 ${fixedAspectRatio ? 'h-full object-cover' : 'h-auto'}`} loading="lazy" />
                 <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-500 pointer-events-none" />
               </motion.div>
               <div className="px-1 pb-2">
-                <motion.h3 layoutId={`title-${item.id}`} className="text-lg font-medium tracking-tight group-hover:text-brand transition-colors">{item.title}</motion.h3>
-                <motion.p layoutId={`cat-${item.id}`} className="text-zinc-500 text-sm whitespace-nowrap overflow-hidden text-ellipsis">{item.category}</motion.p>
+                <motion.h3 layoutId={`${layoutScope}-title-${item.id}`} className="text-lg font-medium tracking-tight group-hover:text-brand transition-colors">{item.title}</motion.h3>
+                <motion.p layoutId={`${layoutScope}-cat-${item.id}`} className="text-zinc-500 text-sm whitespace-nowrap overflow-hidden text-ellipsis">{item.category}</motion.p>
               </div>
             </motion.div>
             );
@@ -98,9 +142,9 @@ export const ProjectGrid = ({ projectIds, title = 'Selected Work', showFilters =
 
       <AnimatePresence>
         {selectedId && selectedProject && (
-          <ProjectModal project={selectedProject} onClose={() => setSelectedId(null)} />
+          <ProjectModal project={selectedProject} onClose={() => setSelectedId(null)} layoutScope={layoutScope} />
         )}
       </AnimatePresence>
-    </section>
+    </motion.section>
   );
 };

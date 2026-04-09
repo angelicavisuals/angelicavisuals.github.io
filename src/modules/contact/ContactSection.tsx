@@ -40,17 +40,17 @@ export const ContactSection = () => {
           <div className="flex flex-col md:flex-row gap-6">
             <div className="flex flex-col gap-2 w-full">
               <label htmlFor="name" className="text-sm font-medium text-zinc-700 dark:text-zinc-300">Name</label>
-              <input id="name" type="text" name="name" autoComplete="name" required placeholder="Your Name" className="w-full px-6 py-4 rounded-2xl bg-zinc-100 dark:bg-zinc-900 border border-transparent focus:border-[var(--color-brand)] focus:bg-white dark:focus:bg-zinc-950 outline-none transition-all placeholder:text-zinc-400" />
+              <input id="name" type="text" name="name" autoComplete="name" required placeholder="Your Name" className="w-full px-6 py-4 rounded-2xl bg-zinc-100 dark:bg-zinc-800/80 border border-transparent focus:border-[var(--color-brand)] focus:bg-white dark:focus:bg-zinc-700/80 outline-none transition-all placeholder:text-zinc-400" />
             </div>
             <div className="flex flex-col gap-2 w-full">
               <label htmlFor="email" className="text-sm font-medium text-zinc-700 dark:text-zinc-300">Email</label>
-              <input id="email" type="email" name="email" autoComplete="email" required placeholder="your@email.com" className="w-full px-6 py-4 rounded-2xl bg-zinc-100 dark:bg-zinc-900 border border-transparent focus:border-[var(--color-brand)] focus:bg-white dark:focus:bg-zinc-950 outline-none transition-all placeholder:text-zinc-400" />
+              <input id="email" type="email" name="email" autoComplete="email" required placeholder="your@email.com" className="w-full px-6 py-4 rounded-2xl bg-zinc-100 dark:bg-zinc-800/80 border border-transparent focus:border-[var(--color-brand)] focus:bg-white dark:focus:bg-zinc-700/80 outline-none transition-all placeholder:text-zinc-400" />
             </div>
           </div>
 
           <div className="flex flex-col gap-2 w-full">
             <label htmlFor="message" className="text-sm font-medium text-zinc-700 dark:text-zinc-300">Message</label>
-            <textarea id="message" name="message" required rows={5} placeholder="Tell me about your project..." className="w-full px-6 py-4 rounded-2xl bg-zinc-100 dark:bg-zinc-900 border border-transparent focus:border-[var(--color-brand)] focus:bg-white dark:focus:bg-zinc-950 outline-none transition-all placeholder:text-zinc-400 resize-none"></textarea>
+            <textarea id="message" name="message" required rows={5} placeholder="Tell me about your project..." className="w-full px-6 py-4 rounded-2xl bg-zinc-100 dark:bg-zinc-800/80 border border-transparent focus:border-[var(--color-brand)] focus:bg-white dark:focus:bg-zinc-700/80 outline-none transition-all placeholder:text-zinc-400 resize-none"></textarea>
           </div>
 
           <button type="submit" className="mt-4 px-8 py-4 rounded-full bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 font-medium hover:bg-[var(--color-brand)] dark:hover:bg-[var(--color-brand)] hover:text-white transition-all scale-100 active:scale-95 duration-200 w-full md:w-max mx-auto">

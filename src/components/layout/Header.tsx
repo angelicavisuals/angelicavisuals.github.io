@@ -60,7 +60,7 @@ export const Header = () => {
     <>
       <div className="fixed top-0 inset-x-0 z-50 flex justify-center pointer-events-none">
         <header
-          className={`pointer-events-auto flex items-center justify-between overflow-hidden backdrop-blur-xl border-b w-full transition-all duration-500 ease-in-out ${
+          className={`pointer-events-auto flex items-center justify-between overflow-hidden backdrop-blur-xl border-b w-full transition-[height,background-color,border-color,box-shadow] duration-150 ease-out ${
             scrolled 
               ? 'bg-white/0 dark:bg-zinc-950/0 h-14 border-transparent shadow-none hover:bg-zinc-50 hover:dark:bg-zinc-950' 
               : 'bg-zinc-50 dark:bg-zinc-950 h-16 border-zinc-200 dark:border-white/10 shadow-sm'
@@ -75,6 +75,7 @@ export const Header = () => {
 
             {/* Desktop Nav */}
             <nav className="hidden sm:flex items-center gap-6 md:gap-8">
+              <Link to="/" className="text-sm font-medium hover:text-[var(--color-brand)] transition-colors">Home</Link>
               <Link to="/work" className="text-sm font-medium hover:text-[var(--color-brand)] transition-colors">Work</Link>
               <Link to="/#about" className="text-sm font-medium hover:text-[var(--color-brand)] transition-colors">About</Link>
               <button
@@ -129,6 +130,19 @@ export const Header = () => {
               transition={{ delay: 0.1 }}
             >
               <Link 
+                to="/" 
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="text-4xl font-semibold tracking-tight hover:text-[var(--color-brand)] transition-colors text-zinc-900 dark:text-zinc-100"
+              >
+                Home
+              </Link>
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2 }}
+            >
+              <Link 
                 to="/work" 
                 onClick={() => setIsMobileMenuOpen(false)}
                 className="text-4xl font-semibold tracking-tight hover:text-brand transition-colors text-zinc-900 dark:text-zinc-100"
@@ -139,7 +153,7 @@ export const Header = () => {
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2 }}
+              transition={{ delay: 0.3 }}
             >
               <Link 
                 to="/#about" 
@@ -153,7 +167,7 @@ export const Header = () => {
               onClick={handleContactClick}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3 }}
+              transition={{ delay: 0.4 }}
               className="text-2xl font-medium px-10 py-4 mt-6 rounded-full bg-[var(--color-brand)] text-white hover:bg-[var(--color-brand-light)] transition-colors cursor-pointer"
             >
               Contact

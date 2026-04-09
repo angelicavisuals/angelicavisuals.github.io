@@ -14,13 +14,13 @@ export const Hero = () => {
       </div>
 
       {/* Content */}
-      <div className="relative z-10 flex flex-col items-center text-center space-y-6 sm:space-y-8 px-4 mt-16 sm:mt-0">
+      <div className="relative z-10 flex flex-col items-center text-center space-y-6 sm:space-y-8 px-4 translate-y-10 sm:translate-y-14 lg:translate-y-20 max-w-5xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
         >
-          <h1 className="text-4xl sm:text-5xl md:text-[6rem] lg:text-[7.5rem] tracking-tighter leading-[0.9] font-medium mb-5 text-white drop-shadow-xl">
+          <h1 className="text-4xl sm:text-5xl md:text-[6rem] lg:text-[7.5rem] tracking-tighter leading-[0.88] font-medium mb-5 text-white drop-shadow-[0_18px_40px_rgba(0,0,0,0.45)]">
             Angelica <br /> Andreasson.
           </h1>
           <p className="text-base sm:text-lg md:text-xl text-zinc-100 font-light max-w-[34ch] leading-relaxed mx-auto drop-shadow-lg">

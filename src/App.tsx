@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Header } from './components/layout/Header';
 import { Home } from './pages/Home';
 import { WorkPage } from './pages/WorkPage';
+import { HomeFooter } from './modules/home/HomeFooter';
 import { motion, useScroll, useSpring } from 'framer-motion';
 
 export default function App() {
@@ -14,7 +15,7 @@ export default function App() {
 
   return (
     <Router>
-      <div className="min-h-[100dvh] bg-zinc-50 dark:bg-zinc-950 text-zinc-900 dark:text-zinc-50 font-sans selection:bg-[var(--color-brand)] selection:text-white pb-12 relative overflow-x-hidden">
+      <div className="min-h-[100dvh] bg-zinc-50 dark:bg-zinc-950 text-zinc-900 dark:text-zinc-50 font-sans selection:bg-[var(--color-brand)] selection:text-white relative overflow-x-clip flex flex-col">
         <div className="fixed inset-0 pointer-events-none overflow-hidden z-0 hidden dark:block" aria-hidden="true">
           {/* Animated breathing gradients */}
           <motion.div 
@@ -40,10 +41,14 @@ export default function App() {
         />
         <Header />
         
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/work" element={<WorkPage />} />
-        </Routes>
+        <div className="relative z-10 flex-1">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/work" element={<WorkPage />} />
+          </Routes>
+        </div>
+
+        <HomeFooter />
       </div>
     </Router>
   );
