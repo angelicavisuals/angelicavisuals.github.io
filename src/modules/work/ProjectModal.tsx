@@ -65,7 +65,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose, la
           animate={{ scale: 1, opacity: 1 }}
           exit={{ scale: 0.9, opacity: 0 }}
           transition={{ type: "spring", stiffness: 300, damping: 30 }}
-          className="relative w-full max-w-6xl max-h-[95vh] sm:max-h-[90vh] bg-zinc-50 dark:bg-zinc-950 rounded-[1.5rem] sm:rounded-[2.5rem] shadow-2xl overflow-hidden border border-zinc-200/50 dark:border-white/10 pointer-events-auto mx-auto"
+          className="relative w-full max-w-6xl max-h-[95dvh] sm:max-h-[90dvh] bg-zinc-50 dark:bg-zinc-950 rounded-[1.5rem] sm:rounded-[2.5rem] shadow-2xl overflow-hidden border border-zinc-200/50 dark:border-white/10 pointer-events-auto mx-auto"
           onClick={e => e.stopPropagation()}
         >
           <motion.div
@@ -74,7 +74,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose, la
           />
           <div
             ref={scrollRef}
-            className="overflow-y-auto overflow-x-hidden max-h-[95vh] sm:max-h-[90vh] flex flex-col"
+            className="overflow-y-auto overflow-x-hidden max-h-[95dvh] sm:max-h-[90dvh] flex flex-col pb-[env(safe-area-inset-bottom,0px)]"
           >
             <button
               className="sticky top-6 self-end mr-6 z-10 p-2 md:p-3 bg-black/50 hover:bg-black/80 text-white rounded-full transition-colors backdrop-blur-md cursor-pointer flex items-center justify-center"

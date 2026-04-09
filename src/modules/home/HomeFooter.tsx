@@ -33,7 +33,7 @@ export const HomeFooter = () => {
       transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
       className="w-full border-t border-zinc-200 dark:border-white/10 bg-white/95 dark:bg-zinc-950/90 backdrop-blur-xl shadow-[0_-1px_0_rgba(0,0,0,0.04)]"
     >
-      <div className="max-w-[1400px] mx-auto px-4 md:px-8 py-8 sm:py-10 flex flex-col sm:flex-row gap-5 sm:gap-8 items-center justify-between">
+      <div className="max-w-[1400px] mx-auto px-4 md:px-8 pt-8 sm:pt-10 pb-[max(2rem,calc(1rem+env(safe-area-inset-bottom,0px)))] sm:pb-[max(2.5rem,calc(1rem+env(safe-area-inset-bottom,0px)))] flex flex-col sm:flex-row gap-5 sm:gap-8 items-center justify-between">
         <p className="text-sm text-zinc-700 dark:text-zinc-400">
           Angelica Andreasson © 2026
         </p>
