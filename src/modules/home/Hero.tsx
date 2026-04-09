@@ -20,7 +20,7 @@ export const Hero = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
         >
-          <h1 className="text-4xl sm:text-5xl md:text-[6rem] lg:text-[7.5rem] tracking-tighter leading-[0.88] font-medium mb-5 text-white drop-shadow-[0_18px_40px_rgba(0,0,0,0.45)]">
+          <h1 className="text-[3.5rem] sm:text-[4.5rem] md:text-[6rem] lg:text-[7.5rem] tracking-tighter leading-[0.88] font-medium mb-5 text-white drop-shadow-[0_18px_40px_rgba(0,0,0,0.45)]">
             Angelica <br /> Andreasson.
           </h1>
           <p className="text-base sm:text-lg md:text-xl text-zinc-100 font-light max-w-[34ch] leading-relaxed mx-auto drop-shadow-lg">
