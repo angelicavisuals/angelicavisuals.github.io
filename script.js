@@ -331,7 +331,7 @@
         btn.classList.add('active');
         const filter = btn.dataset.filter;
         projectCards.forEach(card => {
-          if (filter === 'all' || card.dataset.category === filter) {
+          if (filter === 'all' || card.dataset.categories.split(' ').includes(filter)) {
             card.style.display = '';
           } else {
             card.style.display = 'none';

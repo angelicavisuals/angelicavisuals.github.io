@@ -24,7 +24,7 @@ export const Hero = () => {
             Angelica <br /> Andreasson.
           </h1>
           <p className="text-base sm:text-lg md:text-xl text-zinc-100 font-light max-w-[34ch] leading-relaxed mx-auto drop-shadow-lg">
-            Computer Graphics Designer focusing on product and design modeling.
+            Computer Graphics Designer focusing on texturing and product modeling.
           </p>
         </motion.div>
 

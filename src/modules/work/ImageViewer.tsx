@@ -35,15 +35,29 @@ export const ImageViewer: React.FC<ImageViewerProps> = ({ images, currentIndex, 
       <div className="absolute inset-0 bg-black/95 cursor-pointer" onClick={onClose} />
       
       <div className="relative z-10 flex items-center justify-center w-full h-full p-8">
-        <motion.img
-          key={currentIndex}
-          initial={{ opacity: 0, scale: 0.95 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.2 }}
-          src={images[currentIndex]}
-          alt=""
-          className="max-w-[90vw] max-h-[90vh] object-contain rounded-lg select-none"
-        />
+        {images[currentIndex].endsWith('.mp4') ? (
+          <motion.video
+            key={currentIndex}
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.2 }}
+            src={images[currentIndex]}
+            controls
+            muted
+            playsInline
+            className="max-w-[90vw] max-h-[90vh] object-contain rounded-lg select-none"
+          />
+        ) : (
+          <motion.img
+            key={currentIndex}
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.2 }}
+            src={images[currentIndex]}
+            alt=""
+            className="max-w-[90vw] max-h-[90vh] object-contain rounded-lg select-none"
+          />
+        )}
       </div>
 
       <button

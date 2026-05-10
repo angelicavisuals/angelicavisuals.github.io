@@ -28,7 +28,7 @@ export const Home = () => {
       <ToolkitMarquee />
       
       <main className="max-w-[1400px] mx-auto px-4 md:px-8 relative">
-        <ProjectGrid projectIds={[6, 7, 5]} title="Selected Work" showFilters={false} fixedAspectRatio={true} layoutScope="home" />
+        <ProjectGrid projectIds={[1, 2, 9]} title={<a href="/work" className="hover:text-brand transition-colors">Selected Work</a>} showFilters={false} fixedAspectRatio={true} layoutScope="home" />
         <AboutSection />
         <ContactSection />
       </main>

@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react';
+import type { ReactNode } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { PROJECTS } from './project-data';
 import { ProjectModal } from './ProjectModal';
 
 export interface ProjectGridProps {
   projectIds?: number[];
-  title?: string;
+  title?: ReactNode;
   showFilters?: boolean;
   fixedAspectRatio?: boolean;
   layoutScope?: string;
@@ -73,12 +74,7 @@ export const ProjectGrid = ({ projectIds, title = 'Selected Work', showFilters =
 
   const filtered = filter === 'All' 
     ? orderedBaseProjects
-    : orderedBaseProjects.filter(p => {
-        if (filter === 'Animation') return p.category.includes('Animation');
-        if (filter === 'Modeling') return p.category.includes('Modeling');
-        if (filter === 'Other') return p.category.includes('Other') || (!p.category.includes('Animation') && !p.category.includes('Modeling'));
-        return false;
-      });
+    : orderedBaseProjects.filter(p => p.categories.includes(filter) && !p.showInAllOnly);
   const selectedProject = PROJECTS.find(p => p.id === selectedId);
 
   return (
@@ -96,7 +92,7 @@ export const ProjectGrid = ({ projectIds, title = 'Selected Work', showFilters =
         </h2>
         {showFilters && (
           <div className="flex gap-3 sm:gap-4 overflow-x-auto pb-2 sm:pb-0 hide-scrollbar whitespace-nowrap -mx-4 px-4 sm:mx-0 sm:px-0">
-            {['All', 'Modeling', 'Animation', 'Other'].map(f => (
+            {['All', 'Modeling', 'Texturing', 'Animation', 'Lighting'].map(f => (
               <button
                 key={f}
                 onClick={() => setFilter(f)}
@@ -127,12 +123,23 @@ export const ProjectGrid = ({ projectIds, title = 'Selected Work', showFilters =
                 layoutId={`${layoutScope}-image-${item.id}`} 
                 className={`w-full relative overflow-hidden rounded-3xl bg-zinc-100 dark:bg-zinc-900 border border-zinc-200/50 dark:border-white/5 shadow-sm ${fixedAspectRatio ? 'aspect-[4/3]' : ''}`}
               >
-                <img src={item.image} alt={item.title} className={`w-full block transition-transform duration-700 ease-out group-hover:scale-105 ${fixedAspectRatio ? 'h-full object-cover' : 'h-auto'}`} loading="lazy" />
+                {item.image.endsWith('.mp4') ? (
+                  <video 
+                    src={item.image} 
+                    autoPlay 
+                    loop 
+                    muted 
+                    playsInline
+                    className={`w-full block transition-transform duration-700 ease-out group-hover:scale-105 ${fixedAspectRatio ? 'h-full object-cover' : 'h-auto'}`}
+                  />
+                ) : (
+                  <img src={item.image} alt={item.title} className={`w-full block transition-transform duration-700 ease-out group-hover:scale-105 ${fixedAspectRatio ? 'h-full object-cover' : 'h-auto'}`} loading="lazy" />
+                )}
                 <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-500 pointer-events-none" />
               </motion.div>
               <div className="px-1 pb-2">
                 <motion.h3 layoutId={`${layoutScope}-title-${item.id}`} className="text-lg font-medium tracking-tight group-hover:text-brand transition-colors">{item.title}</motion.h3>
-                <motion.p layoutId={`${layoutScope}-cat-${item.id}`} className="text-zinc-500 text-sm whitespace-nowrap overflow-hidden text-ellipsis">{item.category}</motion.p>
+                <motion.p layoutId={`${layoutScope}-cat-${item.id}`} className="text-zinc-500 text-sm whitespace-nowrap overflow-hidden text-ellipsis">{item.categories.join(' / ')}</motion.p>
               </div>
             </motion.div>
             );

@@ -3,8 +3,8 @@ export const TOOLKITS = [
   { name: 'Fusion 360', icon: 'https://cdn.simpleicons.org/autodesk/white' },
   { name: 'Photoshop', icon: 'https://api.iconify.design/devicon-plain:photoshop.svg?color=white' },
   { name: 'Autodesk Inventor', icon: 'https://cdn.simpleicons.org/autodesk/white' },
-  { name: 'DaVinci Resolve', icon: 'https://cdn.simpleicons.org/davinciresolve/white' },
-  { name: 'After Effects', icon: 'https://api.iconify.design/devicon-plain:aftereffects.svg?color=white' },
+  { name: 'Premiere Pro', icon: 'https://api.iconify.design/simple-icons:adobepremierepro.svg?color=white' },
+  
 ];
 
 export const ToolkitMarquee = () => {

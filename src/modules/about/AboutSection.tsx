@@ -46,9 +46,9 @@ const SKILLS: { name: string; url: string; icon: string; hoverAnim: any }[] = [
     }
   },
   { 
-    name: 'DaVinci Resolve', 
-    url: 'https://www.blackmagicdesign.com/products/davinciresolve', 
-    icon: 'https://cdn.simpleicons.org/davinciresolve/white',
+    name: 'Premiere Pro', 
+    url: 'https://www.adobe.com/products/premiere.html', 
+    icon: 'https://api.iconify.design/simple-icons:adobepremierepro.svg?color=white',
     // Sliding back and forth like scrubbing a video timeline
     hoverAnim: { 
       scale: 1.15,
@@ -56,17 +56,7 @@ const SKILLS: { name: string; url: string; icon: string; hoverAnim: any }[] = [
       transition: { x: { repeat: Infinity, duration: 1.2, ease: "easeInOut" }, scale: { duration: 0.2 } }
     }
   },
-  { 
-    name: 'After Effects', 
-    url: 'https://www.adobe.com/products/aftereffects.html', 
-    icon: 'https://api.iconify.design/devicon-plain:aftereffects.svg?color=white',
-    // Exaggerated bouncy motion for motion graphics
-    hoverAnim: { 
-      scale: 1.15,
-      y: [0, -10, 0],
-      transition: { y: { repeat: Infinity, duration: 0.6, ease: "easeOut" }, scale: { duration: 0.2 } }
-    }
-  },
+  
 ];
 
 export const AboutSection = () => {

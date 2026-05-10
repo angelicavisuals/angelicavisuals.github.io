@@ -84,13 +84,25 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose, la
             </button>
 
             <div className="w-full flex-shrink-0 relative h-[30vh] sm:h-[40vh] md:h-[60vh] bg-zinc-100 dark:bg-zinc-900/50 border-b border-zinc-200/50 dark:border-white/5 flex items-center justify-center p-4 sm:p-8 -mt-12">
-              <motion.img
-                layoutId={`${layoutScope}-image-${project.id}`}
-                src={project.image}
-                alt={project.title}
-                className="max-w-full max-h-full object-contain rounded-2xl drop-shadow-2xl"
-                decoding="async"
-              />
+              {project.video ? (
+                <motion.video
+                  layoutId={`${layoutScope}-image-${project.id}`}
+                  src={project.video}
+                  controls
+                  muted
+                  loop
+                  playsInline
+                  className="max-w-full max-h-full object-contain rounded-2xl drop-shadow-2xl"
+                />
+              ) : (
+                <motion.img
+                  layoutId={`${layoutScope}-image-${project.id}`}
+                  src={project.image}
+                  alt={project.title}
+                  className="max-w-full max-h-full object-contain rounded-2xl drop-shadow-2xl"
+                  decoding="async"
+                />
+              )}
             </div>
 
             <div className="w-full p-5 sm:p-8 md:p-12 lg:p-16 flex flex-col max-w-4xl mx-auto">
@@ -104,50 +116,109 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose, la
                 layoutId={`${layoutScope}-cat-${project.id}`}
                 className="text-[var(--color-brand)] font-semibold text-sm tracking-widest uppercase mb-10"
               >
-                {project.category}
+                {project.categories.join(' / ')}
               </motion.p>
 
-              <motion.p
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="text-base sm:text-lg md:text-xl text-zinc-600 dark:text-zinc-300 leading-relaxed mb-8 sm:mb-16 max-w-3xl"
-              >
-                {project.description}
-              </motion.p>
+              <div className="space-y-8 sm:space-y-12">
+                {project.description.split('\n\n').map((paragraph, idx) => {
+                  const lines = paragraph.split('\n');
+                  let inReflection = false;
 
-              {project.video && (
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.1 }}
-                  className="w-full rounded-xl sm:rounded-2xl overflow-hidden mb-8 sm:mb-16 bg-zinc-900 aspect-video"
-                >
-                  <video controls muted preload="metadata" className="w-full h-full object-contain">
-                    <source src={project.video} type="video/mp4" />
-                  </video>
-                </motion.div>
-              )}
+                  return (
+                    <motion.div
+                      key={idx}
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: idx * 0.05 }}
+                      className={lines.some(l => l.startsWith('Programs:')) ? 'space-y-0' : ''}
+                    >
+                      {lines.map((line, lineIdx) => {
+                        if (line.startsWith('Programs:')) {
+                          return (
+                            <p key={lineIdx} className="text-base sm:text-lg md:text-xl font-semibold text-zinc-700 dark:text-zinc-200 leading-relaxed">
+                              {line}
+                            </p>
+                          );
+                        }
+                        if (line.startsWith('Reflection:')) {
+                          inReflection = true;
+                          return (
+                            <p key={lineIdx} className="text-base sm:text-lg md:text-xl font-bold leading-relaxed mt-6">
+                              {line}
+                            </p>
+                          );
+                        }
+                        if (inReflection) {
+                          return (
+                            <p key={lineIdx} className="text-base sm:text-lg md:text-xl text-zinc-600 dark:text-zinc-300 leading-relaxed">
+                              {line}
+                            </p>
+                          );
+                        }
+                        return (
+                          <p key={lineIdx} className="text-base sm:text-lg md:text-xl text-zinc-600 dark:text-zinc-300 leading-relaxed mb-4">
+                            {line}
+                          </p>
+                        );
+                      })}
+                    </motion.div>
+                  );
+                })}
+
+                {project.video && !project.description.includes('Programs:') && (
+                  <div className="rounded-2xl overflow-hidden bg-zinc-100 dark:bg-zinc-900 border border-zinc-200/50 dark:border-white/5">
+                    <video
+                      src={project.video}
+                      controls
+                      muted
+                      playsInline
+                      className="w-full rounded-2xl"
+                    />
+                  </div>
+                )}
+              </div>
 
               {project.gallery.length > 0 && (
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.2 }}
+                  className="mt-12 sm:mt-16"
                 >
                   <h4 className="text-xl sm:text-2xl font-medium tracking-tight mb-4 sm:mb-8">Gallery</h4>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
-                    {project.gallery.map((img, idx) => (
+                    {project.gallery.map((item, idx) => (
                       <div
                         key={idx}
                         className={`rounded-2xl overflow-hidden bg-zinc-100 dark:bg-zinc-900 border border-zinc-200/50 dark:border-white/5 cursor-pointer group ${idx % 3 === 0 ? 'md:col-span-2' : ''}`}
                         onClick={() => setViewerIndex(idx)}
                       >
-                        <img
-                          src={img}
-                          alt={`${project.title} gallery ${idx + 1}`}
-                          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                          decoding="async"
-                        />
+                        {item.endsWith('.mp4') ? (
+                          <div className="relative w-full h-full">
+                            <video
+                              src={item}
+                              muted
+                              loop
+                              playsInline
+                              className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                            />
+                            <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                              <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-full bg-black/60 backdrop-blur-sm flex items-center justify-center">
+                                <svg width="0" height="0" className="absolute" />
+                                <svg viewBox="0 0 24 24" className="w-6 h-6 sm:w-8 sm:h-8 text-white ml-0.5" fill="currentColor">
+                                  <path d="M8 5v14l11-7z" />
+                                </svg>
+                              </div>
+                            </div>
+                          </div>
+                        ) : (
+                          <img
+                            src={item}
+                            alt={`${project.title} gallery ${idx + 1}`}
+                            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                            decoding="async"
+                          />
+                        )}
                       </div>
                     ))}
                   </div>
