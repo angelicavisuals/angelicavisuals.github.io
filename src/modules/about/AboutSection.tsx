@@ -67,7 +67,7 @@ export const AboutSection = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
         <div className="relative w-full aspect-3/4 rounded-[2.5rem] overflow-hidden group">
           <img 
-            src="/media/Site/portrait.jpg" 
+            src="/media/Site/portrait.webp" 
             alt="Angelica Andreasson" 
             className="w-full h-full object-cover"
           />

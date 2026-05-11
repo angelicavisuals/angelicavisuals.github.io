@@ -8,7 +8,7 @@ export const Hero = () => {
         <video
           autoPlay muted loop playsInline
           className="absolute inset-0 w-full h-full object-cover"
-          src="/media/Hero-Green-Ball/Hero-Green-Ball.mp4"
+          src="/media/Hero-Green-Ball/Hero-Green-Ball.webm"
         />
         <div className="absolute inset-0 bg-black/20 dark:bg-black/40 pointer-events-none" />
       </div>

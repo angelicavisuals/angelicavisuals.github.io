@@ -123,7 +123,7 @@ export const ProjectGrid = ({ projectIds, title = 'Selected Work', showFilters =
                 layoutId={`${layoutScope}-image-${item.id}`} 
                 className={`w-full relative overflow-hidden rounded-3xl bg-zinc-100 dark:bg-zinc-900 border border-zinc-200/50 dark:border-white/5 shadow-sm ${fixedAspectRatio ? 'aspect-[4/3]' : ''}`}
               >
-                {item.image.endsWith('.mp4') ? (
+                {item.image.endsWith('.mp4') || item.image.endsWith('.webm') ? (
                   <video 
                     src={item.image} 
                     autoPlay 
