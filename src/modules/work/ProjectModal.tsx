@@ -193,7 +193,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose, la
                         className={`rounded-2xl overflow-hidden bg-zinc-100 dark:bg-zinc-900 border border-zinc-200/50 dark:border-white/5 cursor-pointer group ${idx % 3 === 0 ? 'md:col-span-2' : ''}`}
                         onClick={() => setViewerIndex(idx)}
                       >
-                        {item.endsWith('.mp4') ? (
+                        {item.endsWith('.mp4') || item.endsWith('.webm') ? (
                           <div className="relative w-full h-full">
                             <video
                               src={item}
