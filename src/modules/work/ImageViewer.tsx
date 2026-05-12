@@ -35,7 +35,7 @@ export const ImageViewer: React.FC<ImageViewerProps> = ({ images, currentIndex, 
       <div className="absolute inset-0 bg-black/95 cursor-pointer" onClick={onClose} />
       
       <div className="relative z-10 flex items-center justify-center w-full h-full p-8">
-        {images[currentIndex].endsWith('.mp4') ? (
+        {images[currentIndex].endsWith('.mp4') || images[currentIndex].endsWith('.webm') ? (
           <motion.video
             key={currentIndex}
             initial={{ opacity: 0, scale: 0.95 }}
